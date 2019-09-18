@@ -1,0 +1,11 @@
+idUsuario,rol,alias,nombre,apellidos,fechaNacimiento,fechaInscripción,email,telefono,datosFacturacion,password,cif,datosAcademicos,cv,nivel
+1,1,el huevito,Huevito,García García,01/01/1991,07/02/2019,huevito@gmail.com,612-123-123,000-000-000,huevito123,,,,7
+2,1,fulgen,Fulgencio,Buen Hombre,31/10/1965,12/09/2019,fulgencio@gmail.com,612-123-124,000-000-000,fulgencio123,,,,1
+3,1,takoyaki,Pascuala,Central Asturiana,25/12/1986,08/08/2019,pascuala@gmail.com,612-123-125,000-000-000,pascuala123,,,,5
+4,1,mr potato,Eneko,Bilbo Pérez,08/03/1978,06/05/2019,eneko@gmail.com,612-123-126,000-000-000,eneko123,,,,3
+5,2,profe fili,Filiberto,Código Facilito,28/12/1990,01/01/2019,profesor-filiberto@atenea.com,612-123-127,000-000-000,filiberto123,,"Doctorado en JavaScript, php y C++. Cofundador de la escuela Código Facilito. Le encanta enseñar a programar.",,12
+6,2,miss script,Chumilla,Baena Baena,04/06/1995,02/01/2019,profesora-chumilla@atenea.com,612-123-128,000-000-000,chumilla123,,"Titulada en Internet de las Cosas por la Universidad de Suiza. Creó su primer programa con 5 años, un sistema para ordenar los botes de plastilina según olor y caducidad. Actualmente es profesora en el EOI.",,15
+7,2,benita,Marianela,Pérez Galdós,07/08/1978,03/01/2019,profesora-marianela@atenea.com,612-123-129,000-000-000,marianela123,,"Doctorada en literatura. Máster en Arameo. Fan incondicional de de don Benito Pérez Galdós, promueve sus obras por todo el mundo.",,9
+8,3,,indra,,,01/09/2019,rrhh@indra.com,612-123-130,000-000-000,indra123,A-28599033,,,20
+9,3,,telefónica,,,04/06/2019,rrhh@telefonica.com,612-123-131,000-000-000,telefonica123,A-28/015865,,,25
+10,4,maestro validador,PeTaSaBe,eoi eoi,,,validador@atenea.com,612-123-132,000-000-000,validador123,,,,
