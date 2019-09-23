@@ -1,0 +1,3 @@
+SET SQL_SAFE_UPDATES = 0;
+UPDATE tusers_has_tcourses
+SET alta = NOW() - INTERVAL FLOOR(RAND() * 100) DAY;
