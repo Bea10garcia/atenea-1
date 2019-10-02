@@ -68,9 +68,9 @@ http.createServer(function(req, res) {
                 case '/random_profes':
                     random_profes();
                     break;
-                case '/crear_alumno':
+                case '/crear_usuario':
                     console.log('voy a crear el alumno ' + cond);
-                    crear_alumno(cond);
+                    crear_usuario(cond);
                     break;
                 case '/cargar_categorias':
                     console.log('cargo categorias');
@@ -135,7 +135,7 @@ http.createServer(function(req, res) {
         	});
     };
 
-    function crear_alumno(cond) {
+    function crear_usuario(cond) {
 
     	/*SACO FECHA PARA FECHA INCLUSION*/
         var today = new Date();
@@ -164,7 +164,7 @@ http.createServer(function(req, res) {
             }
         });*/
         
-        con.query("INSERT INTO tusuarios (rol, alias, nombre , apellidos ,  fechaNacimiento, email, telefono , datosFacturacion, password, datosAcademicos, validado ,fechaInscripcion) VALUES ('2','" + datos.falias + "','" + datos.fnombre + "', '" + datos.fapellidos + "', '" + datos.ffechaNacimiento + "','" + datos.femail + "', '" + datos.ftelefono + "', '" + datos.fdatosFacturacion + "', '" + pass_encriptada + "', '" + datos.fdatosAcademicos + "', '0' , '" + today + "')", function(err, result, fields) {
+        con.query("INSERT INTO tusuarios (rol, alias, nombre , apellidos ,  fechaNacimiento, email, telefono , datosFacturacion, password, datosAcademicos, validado ,fechaInscripcion) VALUES ('" + datos.frol + "','" + datos.falias + "','" + datos.fnombre + "', '" + datos.fapellidos + "', '" + datos.ffechaNacimiento + "','" + datos.femail + "', '" + datos.ftelefono + "', '" + datos.fdatosFacturacion + "', '" + pass_encriptada + "', '" + datos.fdatosAcademicos + "', '0' , '" + today + "')", function(err, result, fields) {
             if (err) throw err;
             console.log("metiendo alumno");
             //Devuelve la respusta (toda la tabla o los datos de un alumno
