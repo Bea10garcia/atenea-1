@@ -166,11 +166,21 @@
                     <div class="modal-body">
                         <table id="tabla_alta" class="table table-striped">
                             <thead>
+                                <div class="dropdown">
+                                    <select class="form-control form-control" id="selector_rol">
+                                        <option>Soy un ...</option>
+                                        <option id="rol2">Alumno</option>
+                                        <option id="rol3">Profesor</option>
+                                        <option id="rol4">Empresa</option>
+                                    </select>
+                                </div>
+                            </thead>
+                            <thead class="ocular_empresa">
                                 <tr>
                                     <th>Alias</th>
                                 </tr>
                             </thead>
-                            <tr>
+                            <tr class="ocular_empresa">
                                 <td>
                                     <input type="text" name="falias" id="falias" class="form-control form-control-lg" placeholder="El huevito" onchange="validarAlias(alias)" required>
                                 </td>
@@ -185,22 +195,22 @@
                                     <input type="text" class="form-control form-control-lg" placeholder="Huevo" name="fnombre" id="fnombre" required>
                                 </td>
                             </tr>
-                            <thead>
+                            <thead class="ocular_empresa">
                                 <tr>
                                     <th>Apellidos</th>
                                 </tr>
                             </thead>
-                            <tr>
+                            <tr class="ocular_empresa">
                                 <td>
-                                    <input type="text" class="form-control form-control-lg" name="" id="fapellidos" placeholder="García García" required>
+                                    <input type="text" class="form-control form-control-lg" name="fapellidos" id="fapellidos" placeholder="García García" required>
                                 </td>
                             </tr>
-                            <thead>
+                            <thead class="ocular_empresa">
                                 <tr>
                                     <th>Fecha de Nacimiento</th>
                                 </tr>
                             </thead>
-                            <tr>
+                            <tr class="ocular_empresa">
                                 <td>
                                     <input type="text" name="ffechaNacimiento" id="ffechaNacimiento" class="form-control form-control-lg" placeholder="01-01-1991" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" required>
                                 </td>
@@ -242,7 +252,7 @@
                             </thead>
                             <tr>
                                 <td>
-                                    <input name="fpassword" id="fpassword" type="password" class="form-control form-control-lg" placeholder="password" onchange="validarContrasena(password.value)" required>
+                                    <input id="fpassword" name="fpassword" type="password" class="form-control form-control-lg" placeholder="password" required>
                                 </td>
                             </tr>
                             <thead>
@@ -388,8 +398,9 @@
         </footer>
         <script>
         /*MODAL ALTA USUARIO*/
-
+        var rol_escogido;
         /*EL CARROUSEL*/
+
         var owl = $('.owl-carousel');
         owl.owlCarousel({
             margin: 10,
@@ -440,8 +451,8 @@
                     console.log(data)
                     $('#prof-div').html(data);
                     break;
-                case 'crear_alumno':
-                    if (data.indexOf("alias_existente")!=0){
+                case 'crear_usuario':
+                    if (data.indexOf("alias_existente") != 0) {
                         alert('Alias ya escogido');
                     }
                     alert('Usuario creado! Te llegará un correo una vez se valide tu cuenta! Bienvenido');
@@ -473,25 +484,29 @@
             });
         };
 
-        function enviarPregunta() {
-            var email = $('#mail_pregunta').val('');
-            var nombre = $('#nombre_pregunta').val('');
-            var telefono = $('#tf').val('');
-
-            var pregunta = $('#textMessage').val('');
-        }
-        /* CAMBIAR AUTOMATICAMENTE IMFO DE ULITMOS CURSOS*/
-
-        $('#carousel-cursos').children('input').each(function() {
-            alert(this.value); // "this" is the current element in the loop
-        });
         /*NUEVO ALUMNO*/
         $('#boton_tabla_alta').off('click').on('click', function() {
             datos = $('#tabla_alta :input').serialize();
+            datos+= '&frol=' + rol_escogido;
             console.log(datos);
-            send_post('crear_alumno', datos);
+            send_post('crear_usuario', datos);
         })
 
+        /*AQUI ACCEDO AL ROL QUE ELIGE EL USUARIO AL ALTEARSE*/
+        $("#selector_rol").change(function() {
+            rol_escogido = $(this).children(":selected").attr("id");
+
+            rol_escogido = rol_escogido[3];
+            if (rol_escogido==4){
+                $('.ocular_empresa').hide();
+            } else{
+                $('.ocular_empresa').show();
+            }
+            console.log(rol_escogido);
+            return (rol_escogido);
+            
+        })
+        /*INICIO SESION*/
 
         send_post('ultimos_cursos', '');
         send_post('random_profes', '')
