@@ -4,6 +4,7 @@ var url = require('url');
 var fs = require('fs');
 var mysql = require('mysql');
 var qs = require('querystring');
+var crypto = require('crypto');
 
 //Inicializa variables globales
 
@@ -117,22 +118,25 @@ http.createServer(function(req, res) {
         today = mm + '/' + dd + '/' + yyyy;
         var datos = qs.parse(cond);
 
-        con.query("INSERT INTO tcursos (titulo, categoria, precio, idioma_curso, fecha_inclusion, descripcion, validado) VALUES ('" + datos.ftitulo + "','" + datos.fidcategoria + "','" + datos.fprecio + "','" + datos.fididioma + "','" + today + "','" + datos.fdescripcion + "','0')", function(err, result, fields) {
+        con.query("INSERT INTO tcursos (titulo, categoria, precio, idioma_curso, fecha_inclusion, descripcion, validado) VALUES ('" + datos.ftitulo + "','" + datos.fidcategoria + "','" + datos.fprecio + "','" + datos.fididioma + "','" + today + "','" + datos.fdescripcion + "','0');", function(err, result, fields) {
             if (err) throw err;
-            console.log("metiendo curso");
-            /*COMO LOS VIDEOS VAN EN OTRA TABLA, HAY QUE HACER UN BUCLE POR TODOS LOS VIDEOS PARA PODER METERLO
+            var idnuevocurso=result.insertId;
+            console.log(idnuevocurso);
+            /*COMO LOS VIDEOS VAN EN OTRA TABLA, HAY QUE HACER UN BUCLE POR TODOS LOS VIDEOS PARA PODER METERLO*/
 	        console.log(datos.video.length);
 	        for (var i = 0; i < datos.video.length; i++) {
-	        	con.query("INSERT INTO tvideos(idcurso, url,leccion) VALUES('" + datos.video[i] + "')
-
-	        }*/
+                var numeroleccion= i+1;
+	        	con.query("INSERT INTO tvideos(idcurso, url,leccion) VALUES('"+idnuevocurso+"','" + datos.video[i] + "','"+numeroleccion+"')", function(err, result, fields) {
+                    if (err) throw err;
+                })
+	        }
             res.end();
 
-        	}
-        );
+        	});
     };
 
     function crear_alumno(cond) {
+
     	/*SACO FECHA PARA FECHA INCLUSION*/
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -143,7 +147,14 @@ http.createServer(function(req, res) {
         var datos = qs.parse(cond);
         var alias = datos.falias;
         console.log(alias);
-        con.query("SELECT * FROM atenea.tUsuarios WHERE alias = '" + alias + "';", function(err, result, fields) {
+        /*ANTES DE ENVIAR NADA ENCRIPTAMOS CONTRASEÑA, ACCEDIENDO A SU VALOR*/
+        pass_noencriptada= datos.fpassword;
+        var mykey = crypto.createCipher('aes-128-cbc', 'mypassword');
+        var pass_encriptada = mykey.update(pass_noencriptada, 'utf8', 'hex');
+        pass_encriptada += mykey.final('hex');
+        console.log(pass_noencriptada);
+        console.log(pass_encriptada);
+        /*con.query("SELECT * FROM atenea.tUsuarios WHERE alias = '" + alias + "';", function(err, result, fields) {
             if (err) throw err;
             if (result.length > 0) {
                 console.log("Mierda");
@@ -151,8 +162,9 @@ http.createServer(function(req, res) {
                 res.end('alias_existente');
 
             }
-        });
-        con.query("INSERT INTO tusuarios (rol, alias, nombre , apellidos ,  fechaNacimiento, email, telefono , datosFacturacion, password, datosAcademicos, validado ,fechaInscripcion) VALUES ('2','" + datos.falias + "','" + datos.fnombre + "', '" + datos.fapellidos + "', '" + datos.ffechaNacimiento + "','" + datos.femail + "', '" + datos.ftelefono + "', '" + datos.fdatosFacturacion + "', '" + datos.fpassword + "', '" + datos.fdatosAcademicos + "', '0' , '" + today + "')", function(err, result, fields) {
+        });*/
+        
+        con.query("INSERT INTO tusuarios (rol, alias, nombre , apellidos ,  fechaNacimiento, email, telefono , datosFacturacion, password, datosAcademicos, validado ,fechaInscripcion) VALUES ('2','" + datos.falias + "','" + datos.fnombre + "', '" + datos.fapellidos + "', '" + datos.ffechaNacimiento + "','" + datos.femail + "', '" + datos.ftelefono + "', '" + datos.fdatosFacturacion + "', '" + pass_encriptada + "', '" + datos.fdatosAcademicos + "', '0' , '" + today + "')", function(err, result, fields) {
             if (err) throw err;
             console.log("metiendo alumno");
             //Devuelve la respusta (toda la tabla o los datos de un alumno
@@ -160,6 +172,7 @@ http.createServer(function(req, res) {
             res.write('¡Información actualizada con éxito!');
             res.end();
         });
+        
     }
 
     function ultimos_cursos(cond) {
