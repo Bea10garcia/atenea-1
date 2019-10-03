@@ -136,11 +136,11 @@
                                 <div class="col-lg-8 ">
                                     <form action="" method="post" class="caja-flotante">
                                         <h3 class="h4 text-black mb-4">Bienvenido de nuevo!</h3>
-                                        <div class="form-group">
-                                            <input id="usuario" type="text" class="form-control" placeholder="Email Addresss">
-                                            <input id="contrasena" type="text" class="form-control" placeholder="Password">
+                                        <div id="login_inputs" class="form-group">
+                                            <input name= "login_alias" id="login_alias" type="text" class="form-control" placeholder="Email Addresss">
+                                            <input name="login_pass"id="login_pass" type="text" class="form-control" placeholder="Password">
                                         </div>
-                                        <button type="button" class="boton d-none d-md-block" data-target="#enviar-section" onclick="comprobarUsuario()">
+                                        <button type="button" id="boton_login" class="boton d-none d-md-block" data-target="#enviar-section">
                                             Conectar
                                         </button>
                                     </form>
@@ -175,12 +175,12 @@
                                     </select>
                                 </div>
                             </thead>
-                            <thead class="ocular_empresa">
+                            <thead class="ocultar_empresa">
                                 <tr>
                                     <th>Alias</th>
                                 </tr>
                             </thead>
-                            <tr class="ocular_empresa">
+                            <tr class="ocultar_empresa">
                                 <td>
                                     <input type="text" name="falias" id="falias" class="form-control form-control-lg" placeholder="El huevito" onchange="validarAlias(alias)" required>
                                 </td>
@@ -195,22 +195,22 @@
                                     <input type="text" class="form-control form-control-lg" placeholder="Huevo" name="fnombre" id="fnombre" required>
                                 </td>
                             </tr>
-                            <thead class="ocular_empresa">
+                            <thead class="ocultar_empresa">
                                 <tr>
                                     <th>Apellidos</th>
                                 </tr>
                             </thead>
-                            <tr class="ocular_empresa">
+                            <tr class="ocultar_empresa">
                                 <td>
                                     <input type="text" class="form-control form-control-lg" name="fapellidos" id="fapellidos" placeholder="García García" required>
                                 </td>
                             </tr>
-                            <thead class="ocular_empresa">
+                            <thead class="ocultar_empresa">
                                 <tr>
                                     <th>Fecha de Nacimiento</th>
                                 </tr>
                             </thead>
-                            <tr class="ocular_empresa">
+                            <tr class="ocultar_empresa">
                                 <td>
                                     <input type="text" name="ffechaNacimiento" id="ffechaNacimiento" class="form-control form-control-lg" placeholder="01-01-1991" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" required>
                                 </td>
@@ -458,7 +458,20 @@
                     alert('Usuario creado! Te llegará un correo una vez se valide tu cuenta! Bienvenido');
                     $('#boton_tabla_cerrar').click();
                     break;
+                case 'log_in':
+                    switch(data) {
+                        case 'no_validado':
+                            alert('Aún no estás validado, espera hasta que te llegue el email de confirmación antes de iniciar sesión');
+                            break;
+                        case 'pass_invalida':
+                            alert('Contraseña incorrecta');
+                            break;
+                        case 'pass_valida':
+                            alert('Bienvenido');
+                            break;
 
+                    }
+                    
             }
         }
 
@@ -483,6 +496,12 @@
                 }
             });
         };
+        /*LOGIN*/
+        $('#boton_login').off('click').on('click', function() {
+            datos = $('#login_inputs :input').serialize();
+            console.log(datos);
+            send_post('log_in', datos);
+        })
 
         /*NUEVO ALUMNO*/
         $('#boton_tabla_alta').off('click').on('click', function() {
@@ -498,9 +517,9 @@
 
             rol_escogido = rol_escogido[3];
             if (rol_escogido==4){
-                $('.ocular_empresa').hide();
+                $('.ocultar_empresa').hide();
             } else{
-                $('.ocular_empresa').show();
+                $('.ocultar_empresa').show();
             }
             console.log(rol_escogido);
             return (rol_escogido);

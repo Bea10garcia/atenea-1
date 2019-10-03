@@ -30,7 +30,7 @@ http.createServer(function(req, res) {
     //muestra el path del archivo solicitado
     console.log('path ' + q.pathname);
 
-    //si no se ha especificado el archivo, toma index.html por defecto	
+    //si no se ha especificado el archivo, toma index.html por defecto  
     if (q.pathname == '/') {
         q.pathname = '/index.html';
     }
@@ -38,7 +38,7 @@ http.createServer(function(req, res) {
     // Actuamos en función del método (POST, GET)
     if (req.method != 'POST') { //Si el método no es POST, devuelve la página solicitada
         console.log('default ' + '..' + q.pathname);
-        //lee el archivo especificado	
+        //lee el archivo especificado   
         fs.readFile('..' + q.pathname, function(err, data) {
             if (err) { // Si no eiste o se produce un error, lo indica
                 res.writeHead(404, { 'Content-Type': 'text/html' });
@@ -83,6 +83,10 @@ http.createServer(function(req, res) {
                 case '/crear_curso':
                     crear_curso(cond);
                     break;
+                case '/log_in':
+                    console.log(cond);
+                    log_in(cond);
+                    break;
             }
         })
     }
@@ -109,8 +113,8 @@ http.createServer(function(req, res) {
     }
 
     function crear_curso(cond) {
-    	/*SACO FECHA PARA FECHA INCLUSION*/
-    	var today = new Date();
+        /*SACO FECHA PARA FECHA INCLUSION*/
+        var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
@@ -120,24 +124,24 @@ http.createServer(function(req, res) {
 
         con.query("INSERT INTO tcursos (titulo, categoria, precio, idioma_curso, fecha_inclusion, descripcion, validado) VALUES ('" + datos.ftitulo + "','" + datos.fidcategoria + "','" + datos.fprecio + "','" + datos.fididioma + "','" + today + "','" + datos.fdescripcion + "','0');", function(err, result, fields) {
             if (err) throw err;
-            var idnuevocurso=result.insertId;
+            var idnuevocurso = result.insertId;
             console.log(idnuevocurso);
             /*COMO LOS VIDEOS VAN EN OTRA TABLA, HAY QUE HACER UN BUCLE POR TODOS LOS VIDEOS PARA PODER METERLO*/
-	        console.log(datos.video.length);
-	        for (var i = 0; i < datos.video.length; i++) {
-                var numeroleccion= i+1;
-	        	con.query("INSERT INTO tvideos(idcurso, url,leccion) VALUES('"+idnuevocurso+"','" + datos.video[i] + "','"+numeroleccion+"')", function(err, result, fields) {
+            console.log(datos.video.length);
+            for (var i = 0; i < datos.video.length; i++) {
+                var numeroleccion = i + 1;
+                con.query("INSERT INTO tvideos(idcurso, url,leccion) VALUES('" + idnuevocurso + "','" + datos.video[i] + "','" + numeroleccion + "')", function(err, result, fields) {
                     if (err) throw err;
                 })
-	        }
+            }
             res.end();
 
-        	});
+        });
     };
 
     function crear_usuario(cond) {
 
-    	/*SACO FECHA PARA FECHA INCLUSION*/
+        /*SACO FECHA PARA FECHA INCLUSION*/
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -148,7 +152,7 @@ http.createServer(function(req, res) {
         var alias = datos.falias;
         console.log(alias);
         /*ANTES DE ENVIAR NADA ENCRIPTAMOS CONTRASEÑA, ACCEDIENDO A SU VALOR*/
-        pass_noencriptada= datos.fpassword;
+        pass_noencriptada = datos.fpassword;
         var mykey = crypto.createCipher('aes-128-cbc', 'mypassword');
         var pass_encriptada = mykey.update(pass_noencriptada, 'utf8', 'hex');
         pass_encriptada += mykey.final('hex');
@@ -163,7 +167,7 @@ http.createServer(function(req, res) {
 
             }
         });*/
-        
+
         con.query("INSERT INTO tusuarios (rol, alias, nombre , apellidos ,  fechaNacimiento, email, telefono , datosFacturacion, password, datosAcademicos, validado ,fechaInscripcion) VALUES ('" + datos.frol + "','" + datos.falias + "','" + datos.fnombre + "', '" + datos.fapellidos + "', '" + datos.ffechaNacimiento + "','" + datos.femail + "', '" + datos.ftelefono + "', '" + datos.fdatosFacturacion + "', '" + pass_encriptada + "', '" + datos.fdatosAcademicos + "', '0' , '" + today + "')", function(err, result, fields) {
             if (err) throw err;
             console.log("metiendo alumno");
@@ -172,7 +176,7 @@ http.createServer(function(req, res) {
             res.write('¡Información actualizada con éxito!');
             res.end();
         });
-        
+
     }
 
     function ultimos_cursos(cond) {
@@ -219,5 +223,30 @@ http.createServer(function(req, res) {
 
         })
     }
+
+    function log_in(cond) {
+        var datos = qs.parse(cond);
+        var alias = datos.login_alias;
+        con.query("SELECT validado FROM atenea.tUsuarios WHERE alias= '" + alias + "';", function(err, result, fields) {
+            console.log(result[0].validado);
+            if (result[0].validado == 0) {
+                res.end('no_validado');
+            }
+            var pass_noencriptada = datos.login_pass;
+            var mykey = crypto.createCipher('aes-128-cbc', 'mypassword');
+            var pass_encriptada = mykey.update(pass_noencriptada, 'utf8', 'hex');
+            pass_encriptada += mykey.final('hex');
+            con.query("SELECT password FROM atenea.tUsuarios WHERE alias = '"+alias+"' AND password= '"+ pass_encriptada+"';", function(err,result,fields){
+                if (result.length ==0){
+                    res.end('pass_invalida');
+                }else{
+                    res.end('pass_valida');
+                };
+
+            })
+
+        })
+    }
+
 
 }).listen(8080);
