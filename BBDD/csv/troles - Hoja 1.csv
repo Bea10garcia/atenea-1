@@ -1,5 +1,0 @@
-idRol,subirVideo,editarVideo,validarVideo
-1,boolean = false,boolean = false,boolean = false
-2,boolean = true,boolean = true,boolean = false
-3,boolean = false,boolean = false,boolean = false
-4,boolean = false,boolean = false,boolean = true
