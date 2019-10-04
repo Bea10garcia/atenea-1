@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- head -->
+    <meta charset="utf-8">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Touch enabled jQuery plugin that lets you create beautiful responsive carousel slider.">
+    <meta name="author" content="David Deutsch">
+    <title>
+        Atenea Plataforma Cursos Online
+    </title>
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="lib/owlcarousel/assets/css/docs.theme.min.css">
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <!-- Owl Stylesheets -->
+    <link rel="stylesheet" href="lib/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="lib/owlcarousel/owl.theme.default.min.css">
+    <!-- Required by Bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Libraries CSS Files -->
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <!-- Favicons -->
+    <link href="img/ateneaminilogo-04.png" rel="icon">
+    <link href="img/ateneaminilogo-03.png" rel="apple-touch-icon">
+    <script src="js/jquery.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        .boton{
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 900;
+            border-radius: 30px !important ;
+            color: #fff;
+            background-color: #7971ea;
+            border-color: #7971ea;
+            padding: 0.5rem 2rem ;
+        }
+        .boton:hover{
+            border-color: #fff;
+            background: #fff;
+            color: #000; }
+        }
+        .form-group {
+            display: block;
+            width: 100%;
+            height: calc(2.25rem + 2px);
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+
+        }
+        .profe_ficha {
+            border: 1px solid #e9ecef;
+
+
+        }
+        .profe_ficha img {
+            position: relative;
+            margin-top: -100px; 
+        }
+        .profe_ficha h3 {
+            font-size: 1.2rem; 
+        }
+        .profe_ficha .position {
+            color: #adb5bd; 
+        }
+        .owl-carousel .item:hover{
+            position: relative;
+            top: -5px;
+        }
+
+        .profe_ficha img:hover{
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- CUANDO DAS A ALTA USUARIO-->
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" id="boton_modal_curso">
+        Nuevo curso
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="modal_alta_user" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_alta_user">Introduce tus Datos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="tabla_alta" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre del Curso</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>
+                                <input type="text" name="ftitulo" id="ftitulo" class="form-control form-control-lg" required>
+                            </td>
+                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Categoría</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <div class="dropdown">
+                                <select class="form-control form-control" id="selector_categoria">
+                                    <option>Selecciona una</option>
+                                </select>
+                            </div>
+                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Idioma del curso</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <div class="dropdown">
+                                <select class="form-control form-control" id="selector_idioma">
+                                    <option>Selecciona uno</option>
+                                </select>
+                            </div>
+                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control form-control-lg" name="fprecio" id="fprecio" required>
+                            </td>
+                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Descripción del curso</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>
+                                <textarea name="fdescripcion" id="fdescripcion" class="form-control form-control-lg" required rows=" 10">
+                                    </textarea>
+                            </td>
+                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Introduce tus vídeos</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td id="nuevos_videos">
+                                <button type="button" class="btn btn-default btn-sm" id="nuevo_link_curso">
+                                    <span class="glyphicon glyphicon-plus"></span> Nueva Lección
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="boton_tabla_cerrar">Cerrar</button>
+                    <button type="button" id="boton_alta_curso" class="btn btn-primary">Crear curso</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    /*AQUI LAS VARIABLES GOLBALES QUE SE USAN ENTRE FUNCIONES*/
+    var contador_videos=0;
+    var idioma_curso;
+    var categoria_curso;
+
+    function send_post(accion, datos) {
+        $.ajax({
+            type: "POST",
+            url: accion,
+            data: datos,
+            success: function(data, status) {
+                console.log('llego');
+                procesa_datos_recibidos(data, status, accion, datos);
+            },
+            error: function(err) {
+                console.log("error " + err.status + ' ' + err.statusText);
+            }
+        });
+    }
+
+    function procesa_datos_recibidos(data, status, accion, datos) {
+        console.log("DATOS" + datos);
+        switch (accion) {
+            case 'cargar_categorias':
+                $('#selector_categoria').html(data);
+                break;
+            case 'cargar_idiomas':
+                $('#selector_idioma').html(data);
+                break;
+            case 'crear_curso':
+                alert('Curso creado! Te llegará un correo una vez se valide!');
+                $('#boton_tabla_cerrar').click();
+                break;
+
+        }
+    }
+    /*AQUI ACCEDO AL IDIOMA QUE ELIJO*/
+    $("#selector_idioma").change(function() {
+        idioma_curso = $(this).children(":selected").attr("id");
+        return(idioma_curso);
+        console.log(idioma_curso);
+    })
+    /*AQUI ACCEDO AL IDIOMA QUE ELIJO*/
+    $("#selector_categoria").change(function() {
+        categoria_curso = $(this).children(":selected").attr("id");
+        return(categoria_curso);
+        console.log(categoria_curso);
+    })
+
+
+    /*SE ABRE EL MODAL*/
+    $('#boton_modal_curso').off('click').on('click', function() {
+        send_post('cargar_categorias', '');
+        send_post('cargar_idiomas', '');
+        /*datos = $('#tabla_alta :input').serialize();
+        console.log(datos);
+        send_post('crear_alumno', datos);*/
+    })
+    /*CADA VEZ QUE DOY A NUEVO VIDEO; ME APARECE UN NUEVO FORM*/
+    $('#nuevo_link_curso').on('click', function() {
+        contador_videos+=1;
+        console.log("pulsado");
+        $( "#nuevos_videos" ).prepend( '<p>Lección '+contador_videos+'</p><input type="text" name= "video" class="formulario_video form-control form-control-sm" required>' );
+        return(contador_videos);
+
+    })
+
+    /*NUEVO CURSO*/
+    $('#boton_alta_curso').off('click').on('click', function() {
+        datos = $('#tabla_alta :input').serialize();
+        idcategoria= categoria_curso;
+        ididioma=idioma_curso;
+        console.log(idcategoria)
+        datos+= '&fidcategoria=' + idcategoria + '&fididioma=' + ididioma;
+        console.log(datos);
+        send_post('crear_curso',datos);
+    })
+
+    /*ANNADIR LINKS DE VIDEOS AL CURSO*/
+    </script>
+    <script src="js/highlight.js"></script>
+    <script src="lib/owlcarousel/assets/js/app.js"></script>
+    <!-- JavaScript Libraries -->
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/jquery/jquery-migrate.min.js"></script>
+    <script src="lib/popper/popper.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/scrollreveal/scrollreveal.min.js"></script>
+</body>
+
+</html>

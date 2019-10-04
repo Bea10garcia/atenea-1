@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- head -->
+    <meta charset="utf-8">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Touch enabled jQuery plugin that lets you create beautiful responsive carousel slider.">
+    <meta name="author" content="David Deutsch">
+    <title>
+        Atenea Plataforma Cursos Online
+    </title>
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="lib/owlcarousel/assets/css/docs.theme.min.css">
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <!-- Owl Stylesheets -->
+    <link rel="stylesheet" href="lib/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="lib/owlcarousel/owl.theme.default.min.css">
+    <!-- Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Favicons -->
+    <link href="img/ateneaminilogo-04.png" rel="icon">
+    <link href="img/ateneaminilogo-03.png" rel="apple-touch-icon">
+    <script src="js/jquery.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.js"></script>
+    <style>
+        .boton{
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 900;
+            border-radius: 30px !important ;
+            color: #fff;
+            background-color: #7971ea;
+            border-color: #7971ea;
+            padding: 0.5rem 2rem ;
+        }
+        .boton:hover{
+            border-color: #fff;
+            background: #fff;
+            color: #000; }
+        }
+        .form-group {
+            display: block;
+            width: 100%;
+            height: calc(2.25rem + 2px);
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+
+        }
+        .profe_ficha {
+            border: 1px solid #e9ecef;
+
+
+        }
+        .profe_ficha img {
+            position: relative;
+            margin-top: -100px; 
+        }
+        .profe_ficha h3 {
+            font-size: 1.2rem; 
+        }
+        .profe_ficha .position {
+            color: #adb5bd; 
+        }
+        .owl-carousel .item:hover{
+            position: relative;
+            top: -5px;
+        }
+
+        .profe_ficha img:hover{
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <!--/ Navegacion /-->
+    <div class="container">
+        <div class="row align-items-center mt-3">
+            <div class="col-12">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <a class="navbar-brand" href="index.html">
+                                <img src="img/atenealogo.png" width="200px">
+                            </a>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#home-section">Home<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#courses-section">Úlitmos Cursos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#nosotros-section">Nosotros</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#profesores-section">Profesores</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#contacto-section">Contáctanos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!--signup login-->
+        <div class="container  h-auto p-3 mb-2 text-white float" id="home-section">
+            <div class="container align-items-center bg-primary">
+                <div class="row align-items-center">
+                    <div class="col-12">
+                        <div class="row align-items-center">
+                            <div class="col-lg-5 mb-4 mt-4 m-10">
+                                <h1>Aprende con los mejores</h1>
+                                <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime ipsa nulla sed quis rerum amet natus quas necessitatibus.</p>
+                                <div class="form-group">
+                                    <input type="submit" class="boton" value="Únete">
+                                </div>
+                            </div>
+                            <div class="col-lg-5 mb-4 mt-4 m-10">
+                                <div class="col-lg-8 ">
+                                    <form action="" method="post" class="caja-flotante">
+                                        <h3 class="h4 text-black mb-4">Bienvenido de nuevo!</h3>
+                                        <div class="form-group">
+                                            <input id="usuario" type="text" class="form-control" placeholder="Email Addresss">
+                                            <input id="contrasena" type="text" class="form-control" placeholder="Password">
+                                        </div>
+                                        <button type="button" class="boton d-none d-md-block" data-target="#enviar-section" onclick="comprobarUsuario()">
+                                            Conectar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ULTIMOS CURSOS MIRAR BOOTSTARP4 CARD PARA-->
+        <div class="container h-auto p-3 mb-2 float" id="courses-section">
+            <div class=" container">
+                <div class="row">
+                    <div class="large-12 columns ">
+                        <div class="titulo text-center mt-4 mb-4">
+                            <h1>Últimos Cursos</h1>
+                        </div>
+                        <div class="owl-carousel " id="carousel-cursos">
+                            <!-- CURSO 1-->
+                            <div class="item h-100 align-self-stretch border boder-primary">
+                                <figure class="m-0">
+                                    <a href="#"><img src="img/img_course_1.jpg" alt="Image" class="img-fluid"></a>
+                                </figure>
+                                <div class="py-4 px-4">
+                                    <span class="course-price">$99</span>
+                                    <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
+                                    <h3><a href="#" id="link_to_curso">JS Programming Language</a></h3>
+                                    <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit. </p>
+                                </div>
+                                <div class="d-flex border-top stats">
+                                    <div class="py-3 px-4"><span class="icon-users"></span> 2,193 students</div>
+                                    <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div>
+                                </div>
+                            </div>
+                            <!-- CURSO 2-->
+                            <div class=" item h-100 align-self-stretch border boder-primary">
+                                <figure class="m-0">
+                                    <a href="#"><img src="img/img_course_2.jpg" alt="Image" class="img-fluid"></a>
+                                </figure>
+                                <div class="py-4 px-4">
+                                    <span class="course-price">$xx</span>
+                                    <div class="meta"><span class="icon-clock-o"></span>xx Lessons / xxx week</div>
+                                    <h3><a href="#" id="link_to_curso">Inglés Idioma</a></h3>
+                                    <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit. </p>
+                                </div>
+                                <div class="d-flex border-top stats">
+                                    <div class="py-3 px-4"><span class="icon-users"></span> 500 students</div>
+                                    <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div>
+                                </div>
+                            </div>
+                            <!-- CURSO 3-->
+                            <div class=" item h-100 align-self-stretch border boder-primary">
+                                <figure class="m-0">
+                                    <a href="#"><img src="img/img_course_3.jpg" alt="Image" class="img-fluid"></a>
+                                </figure>
+                                <div class="py-4 px-4">
+                                    <span class="course-price">$xx</span>
+                                    <div class="meta"><span class="icon-clock-o"></span>xx Lessons / xxx week</div>
+                                    <h3><a href="#" id="link_to_curso">Arameo <br>Básico</a></h3>
+                                    <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit. </p>
+                                </div>
+                                <div class="d-flex border-top stats">
+                                    <div class="py-3 px-4"><span class="icon-users"></span> 723 students</div>
+                                    <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div>
+                                </div>
+                            </div>
+                            <!-- CURSO 4-->
+                            <div class="ficha_curso item h-100 align-self-stretch border boder-primary">
+                                <figure class="m-0">
+                                    <a href="#"><img src="img/img_course_4.jpg" alt="Image" class="img-fluid"></a>
+                                </figure>
+                                <div class="py-4 px-4">
+                                    <span class="course-price">$xx</span>
+                                    <div class="meta"><span class="icon-clock-o"></span>xx Lessons / xxx week</div>
+                                    <h3><a href="#" id="link_to_curso">Animación <br> Cinema4D</a></h3>
+                                    <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit. </p>
+                                </div>
+                                <div class="d-flex border-top stats">
+                                    <div class="py-3 px-4"><span class="icon-users"></span> 899 students</div>
+                                    <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div>
+                                </div>
+                            </div>
+                            <!-- CURSO 5-->
+                            <div class="ficha_curso item h-100 align-self-stretch border boder-primary">
+                                <figure class="m-0">
+                                    <a href="#"><img src="img/img_course_4.jpg" alt="Image" class="img-fluid"></a>
+                                </figure>
+                                <div class="py-4 px-4">
+                                    <span class="course-price">$xx</span>
+                                    <div class="meta"><span class="icon-clock-o"></span>xx Lessons / xxx week</div>
+                                    <h3><a href="#" id="link_to_curso">Animación <br> Cinema4D</a></h3>
+                                    <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit. </p>
+                                </div>
+                                <div class="d-flex border-top stats">
+                                    <div class="py-3 px-4"><span class="icon-users"></span> 899 students</div>
+                                    <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-7 text-center">
+                                <button class="prev-boton boton m-1" href="carousel-cursos" data-slide="prev">Previo</button>
+                                <button class="next-boton boton m-1" href="carousel-cursos" data-slide="next">Siguiente</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- SOBRE ATENEA -->
+        <div class="container h-auto p-3 mb-2 float" id="nosotros-section">
+            <div class=" row justify-content-center">
+                <div class="titulo text-center mt-4 mb-4 col-lg-6">
+                    <h1>¿Qué es Atenea?</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam repellat aut neque! Doloribus sunt non aut reiciendis, vel recusandae obcaecati hic dicta repudiandae in quas quibusdam ullam, illum sed veniam!</p>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mb-5 align-items-center">
+                    <div class="col-lg-7 mb-5">
+                        <img src="img/educacion_online.jpg" alt="Image" class="img-fluid">
+                    </div>
+                    <div class="col-lg-4 ml-auto">
+                        <h2 class="text-black mb-4">Los Mejores en Educación Online</h2>
+                        <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem maxime nam porro possimus fugiat quo molestiae illo.</p>
+                        <div class="d-flex align-items-center custom-icon-wrap mb-3">
+                            <span class="custom-icon-inner mr-3"><span class="icon icon-graduation-cap"></span></span>
+                            <div>
+                                <h3 class="m-0">22,931 Yearly Graduates</h3>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center custom-icon-wrap">
+                            <span class="custom-icon-inner mr-3"><span class="icon icon-university"></span></span>
+                            <div>
+                                <h3 class="m-0">150 Universities Worldwide</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-5 align-items-center">
+                    <div class="col-lg-7 mb-5 order-1 order-lg-2">
+                        <img src="img/strive_excellence.jpg" alt="Image" class="img-fluid">
+                    </div>
+                    <div class="col-lg-4 mr-auto order-2 order-lg-1">
+                        <h2 class="text-black mb-4">Strive for Excellent</h2>
+                        <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem maxime nam porro possimus fugiat quo molestiae illo.</p>
+                        <div class="d-flex align-items-center custom-icon-wrap mb-3">
+                            <span class="custom-icon-inner mr-3"><span class="icon icon-graduation-cap"></span></span>
+                            <div>
+                                <h3 class="m-0">22,931 Yearly Graduates</h3>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center custom-icon-wrap">
+                            <span class="custom-icon-inner mr-3"><span class="icon icon-university"></span></span>
+                            <div>
+                                <h3 class="m-0">150 Universities Worldwide</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--NUESTROS PROFESORES-->
+        <div class="container p-3 mb-2 float" id="profesores-section">
+            <div class="container">
+                <div class="row mb-5 justify-content-center">
+                    <div class="col-lg-7 mb-5 text-center">
+                        <h1>Nuestros Profesores</h1>
+                        <p class="mb-5">Todos nuestros profesores han pasado un riguroso proceso de selección que los hacen los idóneos para trabajar en Atenea y poder ofrecer la mejor educación online</p>
+                    </div>
+                </div>
+                <div class="row" id=" prof-div">
+                    <!--PROFESOR 1-->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="profe_ficha text-center">
+                            <img id="foto_profe_1" src="img/profe1.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+                            <div class="py-2">
+                                <h3 class="nombre">Ramón Ruiz</h3>
+                                <p class="posicion">Física</p>
+                                <p class="bio">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro eius suscipit delectus enim iusto tempora, adipisci at provident.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--PROFESOR 2-->
+                    <div class="col-md-6 col-lg-4 ">
+                        <div class="profe_ficha text-center">
+                            <img id="foto_profe_2" src="img/profe2.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+                            <div class="py-2">
+                                <h3 class="nombre">Sara Jiménez</h3>
+                                <p class="posicion">Profesora Francés</p>
+                                <p class="bio">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro eius suscipit delectus enim iusto tempora, adipisci at provident.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--PROFESOR 3-->
+                    <div class="col-md-6 col-lg-4 ">
+                        <div class="profe_ficha text-center">
+                            <img id="foto_profe_2" src="img/profe3.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+                            <div class="py-2">
+                                <h3 class="nombre">Laura López</h3>
+                                <p class="posicion">Profesora Arameo</p>
+                                <p class="bio">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro eius suscipit delectus enim iusto tempora, adipisci at provident.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CONTÁCTANOS -->
+        <div class="container p-3 mb-2 float" id="contacto-section">
+            <div calss="col-ml-8">
+                <form class="form-a">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 mb-1">
+                            <div class="form-group">
+                                <h2 style="text-align:center;">¿Alguna Duda?</h2>
+                                <h1 style="text-align:center;">¡Contáctanos!</h1>
+                            </div>
+                        </div>
+                        <div class="col-md-8 mb-1">
+                            <div class="form-group">
+                                <input id="nombre_pregunta" type="text" class="form-control" placeholder="Tu nombre">
+                            </div>
+                            <div id="mail_pregunta" class="form-group">
+                                <input type="text" class="form-control" placeholder="Tu email">
+                            </div>
+                            <div class="form-group">
+                                <input id="tf" type="num" class="form-control" placeholder="¿Quieres que te llamemos?">
+                            </div>
+                            <div class="form-group">
+                                <textarea id="textMessage" class="form-control" placeholder="Plantea tus dudas *" name="message" cols="45" rows="8" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <button type="submit" class="boton" onclick="enviarPregunta()">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- footer -->
+        <footer class="footer">
+        </footer>
+        <script>
+        /*EL CARROUSEL*/
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+            margin: 10,
+            loop: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 3
+                }
+            }
+        })
+        $(".next-boton").click(function() {
+            owl.trigger('next.owl.carousel');
+        });
+
+        $(".prev-boton").click(function() {
+            owl.trigger('prev.owl.carousel');
+        });
+        /*PETICIONES DE AJAX*/
+        function send_post(accion, datos) {
+            $.ajax({
+                type: "POST",
+                url: accion,
+                data: datos,
+                success: function(data, status) {
+                    procesa_datos_recibidos(data, status, accion, datos);
+                },
+                error: function(err) {
+                    console.log("error " + err.status + ' ' + err.statusText);
+                }
+            });
+        }
+
+        function procesa_datos_recibidos(data, status, accion, datos) {
+            switch (accion) {
+                case 'ultimos_cursos':
+                    $('#carousel-cursos').html(data);
+            }
+        }
+
+        function comprobarUsuario() {
+            var usuario = $('#usuario').val('');
+            var contrasena = $('#contrasena').val('');
+            $.ajax({
+                type: "POST",
+                url: "busca_alumnos.php",
+                /*FUNCION CON NODE PARA CONECTAR A BBDD*/
+                data: "user=" + usuario,
+                success: function(data, status) {
+                    /* sacar contrasenna de bbdd*/
+                    if (contrasena == contrasena) {
+                        window.open('plantilla_perfil.html', '_blank');
+                    } else {
+                        alert('Introduce la contraseña correcta');
+                    }
+                },
+                error: function(err) {
+                    console.log("error " + err.status + ' ' + err.statusText);
+                }
+            });
+        };
+
+        function enviarPregunta() {
+            var email = $('#mail_pregunta').val('');
+            var nombre = $('#nombre_pregunta').val('');
+            var telefono = $('#tf').val('');
+
+            var pregunta = $('#textMessage').val('');
+        }
+        /* CAMBIAR AUTOMATICAMENTE IMFO DE ULITMOS CURSOS*/
+
+        $('#carousel-cursos').children('input').each(function() {
+            alert(this.value); // "this" is the current element in the loop
+        });
+        /* CAMBIAR AUTOMATICAMENTE IMFO DE PROFESORES*/
+        $('#prof-div').children('input').each(function() {
+            alert(this.value); // "this" is the current element in the loop
+        });
+
+        send_post('ultimos_cursos', '');
+        </script>
+        <script src="js/highlight.js"></script>
+        <script src="lib/owlcarousel/assets/js/app.js"></script>
+</body>
+
+</html>

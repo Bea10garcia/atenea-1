@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Atenea Cursos - Edición</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <!-- Favicons -->
+    <link href="img/ateneaminilogo-04.png" rel="icon">
+    <link href="img/ateneaminilogo-03.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <!-- Required by Bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Libraries CSS Files -->
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <script src="lib/jquery/jquery.min.js"></script>
+    <!-- enlace a biblioteca que permite hacer botones toggle on-off -->
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <!-- enlace Bea a fontawesome para los iconos de las medallas -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <!-- enlace Bea a biblioteca sweet alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row align-items-center mt-3">
+            <div class="col-4">
+                <a class="navbar-brand" href="index.html">
+                    <img src="atenealogo.png" width="350px">
+                </a>
+            </div>
+            <div class="col-8">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Mis Cursos</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Mi Perfil<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Dropdown
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Disabled</a>
+                            </li>
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+        </div> <!--  Fila con logo y menu -->
+        <div class="row mt-5">
+            <!--  Fila para el titulo del video -->
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box border-left border-success">
+                    <h1 id="saludoUsuario" class="title-single pl-4">Bienvenido de nuevo, Telefónica</h1>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                    <ol class="breadcrumb bg-transparent">
+                        <li class="breadcrumb-item">
+                            <a href="#" class="text-success">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active text-success" aria-current="page">
+                            Profile
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-4">
+                <div class="card" style="width:400px">
+                    <img class="card-img-top" src="img/agent-2.jpg" name="usuario" alt="usuarioFoto" style="width:100%" style="border-radius: 50px">
+                    <!-- de esta forma se transforma un input browser en botón, así el usuario carga su foto de perfil -->
+                    <label class="btn btn-success">
+                        Cambiar Foto <input type="file" hidden>
+                    </label>
+                    <div class="card-body">
+                        <h4 id="tarjetaNombre" class="card-title">Telefónica</h4>
+                        <p class="card-text">Empresa de telefonía móvil</p>
+                        <div class="input-group mb-3">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success mt-1 mb-1" data-toggle="tooltip" data-placement="top" title="Editar" type="button">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </button>
+                                <button class="btn btn-success mt-1 mb-1" data-toggle="tooltip" data-placement="top" title="Mis Estadísticas" type="button">
+                                    <i class="fas fa-chart-bar"></i>
+                                </button>
+                                <button class="btn btn-success mt-1 mb-1" data-toggle="tooltip" data-placement="top" title="Mis Mensajes" type="button">
+                                    <i class="far fa-envelope"></i>
+                                </button>
+                                <button class="btn btn-success mt-1 mb-1" data-toggle="tooltip" data-placement="top" title="Pagos" type="button">
+                                    <i class="fas fa-piggy-bank"></i>
+                                </button>
+                                <button class="btn btn-success mt-1 mb-1" data-toggle="tooltip" data-placement="top" title="Mis trabajadores" type="button">
+                                    <i class="fas fa-users"></i>
+                                </button>
+                                <button class="btn btn-success mt-1 mb-1" data-toggle="tooltip" data-placement="top" title="Adquirir Licencias" type="button">
+                                    <i class="fas fa-user-plus"></i>
+                                </button>
+                                <button class="btn btn-success mt-1 mb-1" data-toggle="tooltip" data-placement="top" title="Dar de Baja Licencias" type="button">
+                                    <i class="fas fa-user-times"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- quitamos -responsive de class table porque es lo que hacía que salieran las flechas -->
+                <div class="table">
+                    <!-- bg es para cambiar el color de fondo -->
+                    <div class="row justify-content-center bg-success text-white">
+                        <h4>Datos</h4>
+                    </div>
+                    <form id="perfilUsuario">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Empresa</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <input id="inputNombre" type="text" class="form-control form-control-lg" placeholder="Telefonica" maxlength="30" required>
+                                </td>
+                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>Fecha de Inscripción</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <input id="nacimiento" type="text" class="form-control form-control-lg" placeholder="04-06-2019" onchange="validarCumple(nacimiento.value)" required>
+                                </td>
+                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <input id="email" type="email" name="email" class="form-control form-control-lg" placeholder="rrhh@telefonica.com" onchange="validarMail(email.value)" required>
+                                </td>
+                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>Número de teléfono</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <input id="telefono" type="tel" class="form-control form-control-lg" placeholder="612-123-123" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" onchange="validarTelefono(telefono.value)" required>
+                                </td>
+                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>Datos de facturación</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <input id="tarjeta" type="text" class="form-control form-control-lg" placeholder="0000-0000-0000-0000" onchange="validarFacturacion(tarjeta.value)" required>
+                                </td>
+                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>CIF</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <input id="numeroCif" type="text" class="form-control form-control-lg" placeholder="0000-0000-0000-0000" onchange="validarNumeroCif(numeroCif.value)">
+                                </td>
+                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>Contraseña</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <input id="password" type="password" class="form-control form-control-lg" placeholder="password" onchange="validarContrasena(password.value)" required>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <div class="row justify-content-center mb-5">
+                        <!-- con btn-block ocupo todo el espacio para que se vea bien el botón de editar y con btn-lg se hace más grande  -->
+                        <button type="submmit" id="botonGuardaCambios" class="btn btn-success btn-lg mr-2">Guardar Cambios</button>
+                        <!-- quiero hacer un alert que me saque la parte de eliminar cuenta que tengo abajo, teniendo que validar la contraseña y correo para poder eliminarla, además de un pop-up que te pregunte si estás de acuerdo -->
+                        <button id="botonEliminar" class="btn btn-danger btn-lg ml-2">Eliminar tu Cuenta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- prueba footer -->
+    <footer class="card-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-12">
+                    <div class="widget-a">
+                        <div class="w-header-a">
+                            <h3 class="w-title-a text-brand">Atenea Formación</h3>
+                        </div>
+                        <div class="w-body-a">
+                            <p class="w-text-a color-text-a">
+                                Plataforma de cursos online.
+                            </p>
+                        </div>
+                        <div class="w-footer-a">
+                            <ul class="list-unstyled">
+                                <li class="color-a">
+                                    <span class="color-text-a">Teléfono: </span> atenea@formacion.com
+                                </li>
+                                <li class="color-a">
+                                    <span class="color-text-a">Email: </span> +34 91 200 12 34
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <nav class="nav-footer">
+                    </nav>
+                    <div class="copyright-footer">
+                        <p class="copyright color-text-a">
+                            &copy; Copyright
+                            <span class="color-a">AteneaFormacion</span> All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="credits">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+    function send_post(accion, datos) {
+        $.ajax({
+            type: "POST",
+            url: accion,
+            data: datos,
+            success: function(data, status) {
+                console.log('llego');
+                procesa_datos_recibidos(data, status, accion, datos);
+            },
+            error: function(err) {
+                console.log("error " + err.status + ' ' + err.statusText);
+            }
+        });
+    }
+
+    function procesa_datos_recibidos(data, status, accion, datos) {
+        console.log("DA" + data);
+        dat = JSON.parse(data);
+        console.log(dat);
+        console.log("DATOS" + dat[0].nombre);
+        switch (accion) {
+            case 'perfilEmpresa':
+                console.log("hola" + dat[0].alias);
+                $('#saludoUsuario').html("Bienvenido de nuevo, "+dat[0].nombre);
+                $('#tarjetaNombre').html(dat[0].nombre + " " + dat[0].apellidos);
+                $('#inputNombre').val(dat[0].nombre + " " + dat[0].apellidos);
+                //$('#inputNombre').val(dat[0].apellidos);
+                $('#nacimiento').val(dat[0].fechaInscripcion);
+                $('#email').val(dat[0].email);
+                $('#telefono').val(dat[0].telefono);
+                $('#tarjeta').val(dat[0].datosFacturacion);
+                $('#numeroCif').val(dat[0].cif);
+                $('#password').val(dat[0].password);
+                break;
+        }
+    }
+
+    // esta es la buena, cuando tengamos los datos de sessionStorage cuando se haga login  send_post("perfil", 'idUsuario=' + sessionStorage.getItem('idUsuario'));
+    send_post("perfilEmpresa", 'idUsuario=8');
+    </script>
+    <!-- JavaScript Libraries -->
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/jquery/jquery-migrate.min.js"></script>
+    <script src="lib/popper/popper.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/scrollreveal/scrollreveal.min.js"></script>
+    <!-- biblioteca toggle on-off -->
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/js/bootstrap4-toggle.min.js"></script>
+    <!-- enlace Bea archivo js externo -->
+    <script src="js/PlantillaFinalPerfil.js"></script>
+</body>
+
+</html>
