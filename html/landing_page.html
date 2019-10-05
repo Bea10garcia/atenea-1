@@ -517,6 +517,9 @@
         /*LOGIN*/
         $('#boton_login').off('click').on('click', function() {
             datos = $('#login_inputs :input').serialize();
+            if (datos == "login_email=&login_pass="){
+                break;
+            }
             console.log(datos);
             send_post('log_in', datos);
         })
