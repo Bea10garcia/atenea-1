@@ -163,6 +163,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    <!--MODAL ALTA DE USUARIO-->
                     <div class="modal-body">
                         <table id="tabla_alta" class="table table-striped">
                             <thead>
@@ -400,23 +401,8 @@
         /*MODAL ALTA USUARIO*/
         var rol_escogido;
         /*EL CARROUSEL*/
-
         var owl = $('.owl-carousel');
-        owl.owlCarousel({
-            margin: 10,
-            loop: true,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                600: {
-                    items: 2
-                },
-                1000: {
-                    items: 3
-                }
-            }
-        })
+
         $(".next-boton").click(function() {
             owl.trigger('next.owl.carousel');
         });
@@ -446,6 +432,22 @@
             switch (accion) {
                 case 'ultimos_cursos':
                     $('#carousel-cursos').html(data);
+                    
+                    owl.owlCarousel({
+                        margin: 10,
+                        loop: true,
+                        responsive: {
+                            0: {
+                                items: 1
+                            },
+                            600: {
+                                items: 2
+                            },
+                            1000: {
+                                items: 3
+                            }
+                        }
+                    })
                     break;
                 case 'random_profes':
                     console.log(data)
@@ -517,7 +519,7 @@
         /*LOGIN*/
         $('#boton_login').off('click').on('click', function() {
             datos = $('#login_inputs :input').serialize();
-            if (datos == "login_email=&login_pass="){
+            if (datos == "login_email=&login_pass=") {
                 break;
             }
             console.log(datos);
@@ -549,7 +551,7 @@
         /*INICIO SESION*/
 
         send_post('ultimos_cursos', '');
-        send_post('random_profes', '')
+        send_post('random_profes', '');
         </script>
         <script src="js/highlight.js"></script>
         <script src="lib/owlcarousel/assets/js/app.js"></script>

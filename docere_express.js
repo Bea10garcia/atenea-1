@@ -53,14 +53,14 @@ app.post('/perfilEmpresa', function(req, res) {
     });
 });
 
-//COGER ULTIMOS 5 CURSOS
+//COGER ULTIMOS 6 CURSOS
 app.post('/ultimos_cursos', function(req, res) {
 
-    con.query("SELECT idCurso, titulo, precio, categoria, idioma_curso, imagen, fecha_inclusion FROM tcursos ORDER BY fecha_inclusion DESC LIMIT 5;", function(err, result, fields) {
+    con.query("SELECT t.idCurso, t.titulo, t.precio, c.categoria, i.idioma, t.imagen, t.descripcion FROM tcursos t INNER JOIN tcategorias c ON t.categoria= c.idtcategorias INNER JOIN tidiomas i ON t.idioma_curso=i.ididiomas ORDER BY fecha_inclusion ASC LIMIT 6;", function(err, result, fields) {
         if (err) throw err;
         car_curso = '';
         for (var i = 0; i < result.length; i++) {
-            car_curso += '<div class="item h-100 col-lg-4 align-self-stretch border boder-primary"><figure class="m-0"><a href="#"><img style ="width:100%" src="' + result[i].imagen + '" alt="Image" class="img-fluid"></a></figure><div class="py-4 px-4"><span class="course-price">' + result[i].precio + '</span><div class="meta"><span class="icon-clock-o"></span>' + result[i].fecha_inclusion + '</div><h3><a href="#" id="link_to_curso">' + result[i].titulo + '</a></h3><p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit. </p></div><div class="d-flex border-top stats"><div class="py-3 px-4">2,193 students</div><div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div></div></div>';
+            car_curso += '<div id="curso_' + result[i].idCurso + '"class="ficha_curso item h-100 col-lg-12 align-self-stretch border boder-primary"><figure class="m-0" style="height:20vh; overflow:hidden"><a href="#"><img style =" width:100%" class="mt-3" src="' + result[i].imagen + '" alt="Image" class="img-fluid"></a></figure><div class="py-4 px-4" "><span class="course-price">' + result[i].precio + ' €</span><div class="meta"><span class="icon-clock-o"></span>' + result[i].categoria + '</div> <div style="height:30vh; overflow:scroll"> <h3><a href="#" id="link_to_curso">' + result[i].titulo + '</a></h3><p>' + result[i].descripcion + ' </p></div></div><div class="d-flex border-top stats"><div class="py-3 px-4">' + result[i].idioma + '</div><div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div></div></div>';
         };
         res.send(car_curso);
     })
@@ -119,7 +119,7 @@ app.post('/crear_usuario', function(req, res) {
     });
 
 });
-
+//CARGAR CATEGORIAS PARA LA CREACION DE CURSOS
 app.post('/cargar_categorias', function(req, res) {
     con.query("SELECT * FROM atenea.tcategorias;", function(err, result, fields) {
         if (err) throw err;
@@ -135,7 +135,24 @@ app.post('/cargar_categorias', function(req, res) {
 
     })
 });
+//CARGAR CATEGORIAS PARA LA PAGINA DE FILTROS
+app.post('/filtros_cargar_categorias', function(req, res) {
+    con.query("SELECT * FROM atenea.tcategorias;", function(err, result, fields) {
+        if (err) throw err;
+        todascategorias = '';
+        for (var i = 0; i < result.length; i++) {
+            console.log('meto categoria' + result[i].categoria);
+            todascategorias += '<input type="checkbox" name="categoria_' + result[i].idtcategorias + '" value="' + result[i].idtcategorias + '"> ' + result[i].categoria + '<br>';
 
+        };
+
+        res.send(todascategorias);
+        console.log(todascategorias)
+
+    })
+});
+
+//CARGAR IDIOMAS PARA LA CREACION DE CURSOS
 app.post('/cargar_idiomas', function(req, res) {
     con.query("SELECT * FROM atenea.tidiomas;", function(err, result, fields) {
         if (err) throw err;
@@ -150,6 +167,36 @@ app.post('/cargar_idiomas', function(req, res) {
     })
 });
 
+//CARGAR IDIOMAS PARA LA PAGINA DE FILTROS
+app.post('/filtros_cargar_idiomas', function(req, res) {
+    console.log('hola');
+    con.query("SELECT * FROM atenea.tidiomas;", function(err, result, fields) {
+        if (err) throw err;
+        todosidiomas = '';
+        for (var i = 0; i < result.length; i++) {
+            console.log('meto idiomas' + result[i].idioma);
+            todosidiomas += '<input type="checkbox" name="idioma_' + result[i].ididiomas + '" value="' + result[i].ididiomas + '"> ' + result[i].idioma + '<br>';
+
+        };
+        res.send(todosidiomas);
+        console.log(todosidiomas);
+    })
+});
+//CARGAR PRFESORES PARA LOS CURSOS
+app.post('/filtros_cargar_profesores', function(req, res) {
+    console.log('hola');
+    con.query("SELECT idUsuario, nombre, apellidos FROM atenea.tUsuarios WHERE rol='3' AND validado = '1';", function(err, result, fields) {
+        if (err) throw err;
+        todosprofes = '';
+        for (var i = 0; i < result.length; i++) {
+            console.log('meto idiomas' + result[i].idioma);
+            todosprofes += '<input type="checkbox" name="prof_' + result[i].idUsuario + '" value=" ' + result[i].idUsuario + '">' + result[i].nombre + ' ' + result[i].apellidos + '<br>';
+        };
+        res.send(todosprofes);
+        console.log(todosprofes);
+    })
+});
+//CREAR CURSO
 app.post('/crear_curso', function(req, res) {
     /*SACO FECHA PARA FECHA INCLUSION*/
     var today = new Date();
@@ -183,7 +230,7 @@ app.post('/log_in', function(req, res) {
     var datos = req.body;
     var email = datos.login_email;
     con.query("SELECT validado FROM atenea.tUsuarios WHERE email= '" + email + "';", function(err, result, fields) {
-        console.log('El valor de validado es '+result[0].validado);
+        console.log('El valor de validado es ' + result[0].validado);
         if (result[0].validado == 0) {
             res.send('no_validado');
         }
@@ -198,8 +245,8 @@ app.post('/log_in', function(req, res) {
                 var id = result[0].idUsuario;
                 var rol = result[0].rol;
                 console.log('!!!!!!!!!!!el ID es' + result[0].idUsuario);
-                 console.log('!!!!!!!!!!!el ROL es' + result[0].rol);
-                var data= { 'idUsuario': id, 'rol': rol };
+                console.log('!!!!!!!!!!!el ROL es' + result[0].rol);
+                var data = { 'idUsuario': id, 'rol': rol };
                 res.send(data);
 
 
@@ -209,6 +256,32 @@ app.post('/log_in', function(req, res) {
 
     });
 });
+
+//CARGA CURSOS EN PAGINA DE BUSQUEDA
+app.post('/cargar_cursos', function(req, res) {
+    //DEPENDE DE SI HACEMOS LA LLAMADA cargar_curso con filtros o no, entonces habrá dos opciones:
+    var datos = req.body;
+    console.log('cargando todos cursos');
+    console.log(datos.valor);
+    var sentencia= "SELECT idCurso, titulo, precio, imagen FROM atenea.tcursos WHERE " +datos.valor+ " AND validado = '1';";
+    console.log(sentencia);
+    
+    con.query(sentencia, function(err, result, fields) {
+        if (err) throw err;
+        todoscursos = '';
+        for (var i = 0; i < result.length; i++) {
+            console.log('meto curso' + result[i].titulo);
+            todoscursos += '<div id="curso_'+result[i].idCurso+'"class="p-2 col-lg-4 col-md-6 col-sm-12"><div class="border m-1"><div class="item align-self-stretch  p-3"><figure class="m-0" style="height:25vh; overflow:hidden"><a ><img src="'+result[i].imagen+'" alt="Image" class="img-fluid" style="object-fit: cover"></a></figure></div><div class="px-3 row"><div style=" height:10vh" class="overflow-auto col-lg-8">'+result[i].titulo+'</div><div class="col-lg-4 course-price">'+result[i].precio+' €</div></div><div class="d-flex justify-content-center m-2"><button type="button" class="boton_compra boton d-none d-md-block">Comprar</button></div></div></div>';
+        };
+        res.send(todoscursos);
+        console.log("ENVIO LOS CURSOS");
+    })
+
+
+});
+
+
+
 
 
 app.use(express.static('html'));
