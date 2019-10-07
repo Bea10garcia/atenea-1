@@ -91,22 +91,24 @@
 <body>
     <!--/ Navegacion /-->
     <div class="container">
-        <div class="row align-items-center mt-3">
-            <div class="col-12">
+        <div class="row align-items-center mt-3 mb-4">
+            <div class="col-4">
+                <a class="navbar-brand" href="landing_page.html">
+                    <img src="img/atenealogo.png" width="350px">
+                </a>
+            </div>
+            <div class="col-8">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
-                            <a class="navbar-brand" href="index.html">
-                                <img src="img/atenealogo.png" width="200px">
-                            </a>
                             <li class="nav-item active">
                                 <a class="nav-link" href="#home-section">Home<span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#courses-section">Úlitmos Cursos</a>
+                                <a class="nav-link" href="filterpage.html">Cursos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#nosotros-section">Nosotros</a>
+                                <a class="nav-link" href="#nosotros-section">Sobre nosotros</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#profesores-section">Profesores</a>
@@ -120,29 +122,27 @@
             </div>
         </div>
         <!--signup login-->
-        <div class="container  h-auto p-3 mb-2 text-white float" id="home-section">
-            <div class="container align-items-center bg-primary">
+        <div class="container h-auto p-3 mb-2 text-white float" id="home-section">
+            <div class="container align-items-center bg-success">
                 <div class="row align-items-center">
                     <div class="col-12">
-                        <div class="row align-items-center">
+                        <div class="row justify-content-center">
                             <div class="col-lg-5 mb-4 mt-4 m-10">
                                 <h1>Aprende con los mejores</h1>
-                                <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime ipsa nulla sed quis rerum amet natus quas necessitatibus.</p>
+                                <p class="mt-4 text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime ipsa nulla sed quis rerum amet natus quas necessitatibus.</p>
                                 <div class="form-group">
-                                    <input type="submit" class="boton" value="Únete" data-toggle="modal" data-target="#exampleModalLong">
+                                    <button type="submit" class="btn btn-warning btn-lg mt-4" data-toggle="modal" data-target="#exampleModalLong" class="btn btn-warning btn-lg mr-2">Únete</button>
                                 </div>
                             </div>
-                            <div class="col-lg-5 mb-4 mt-4 m-10">
+                            <div class="col-6 mb-4 mt-4">
                                 <div class="col-lg-8 ">
                                     <form action="" method="post" class="caja-flotante">
-                                        <h3 class="h4 text-black mb-4">Bienvenido de nuevo!</h3>
+                                        <h1 class="mb-4">Bienvenido de nuevo!</h1>
                                         <div id="login_inputs" class="form-group">
                                             <input name="login_email" id="login_email" type="text" class="form-control" placeholder="Email Addresss">
-                                            <input name="login_pass" id="login_pass" type="text" class="form-control" placeholder="Password">
+                                            <input name="login_pass" id="login_pass" type="text" class="form-control mt-4" placeholder="Password">
                                         </div>
-                                        <button type="button" id="boton_login" class="boton d-none d-md-block" data-target="#enviar-section">
-                                            Conectar
-                                        </button>
+                                        <button type="button" id="boton_login" class="btn btn-warning btn-lg mr-2" data-target="#enviar-section">Conectar</button>
                                     </form>
                                 </div>
                             </div>
@@ -165,109 +165,111 @@
                     </div>
                     <!--MODAL ALTA DE USUARIO-->
                     <div class="modal-body">
-                        <table id="tabla_alta" class="table table-striped">
-                            <thead>
-                                <div class="dropdown">
-                                    <select class="form-control form-control" id="selector_rol">
-                                        <option>Soy un ...</option>
-                                        <option id="rol2">Alumno</option>
-                                        <option id="rol3">Profesor</option>
-                                        <option id="rol4">Empresa</option>
-                                    </select>
-                                </div>
-                            </thead>
-                            <thead class="ocultar_empresa">
-                                <tr>
-                                    <th>Alias</th>
+                        <form id="perfilUsuario">
+                            <table id="tabla_alta" class="table table-striped">
+                                <thead>
+                                    <div class="dropdown">
+                                        <select class="form-control form-control" id="selector_rol">
+                                            <option>Soy un ...</option>
+                                            <option id="rol2">Alumno</option>
+                                            <option id="rol3">Profesor</option>
+                                            <option id="rol4">Empresa</option>
+                                        </select>
+                                    </div>
+                                </thead>
+                                <thead class="ocultar_empresa">
+                                    <tr>
+                                        <th>Alias</th>
+                                    </tr>
+                                </thead>
+                                <tr class="ocultar_empresa">
+                                    <td>
+                                        <input type="text" name="falias" id="falias" class="form-control form-control-lg" placeholder="El huevito" maxlength="15" required>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tr class="ocultar_empresa">
-                                <td>
-                                    <input type="text" name="falias" id="falias" class="form-control form-control-lg" placeholder="El huevito" onchange="validarAlias(alias)" required>
-                                </td>
-                            </tr>
-                            <thead>
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                    </tr>
+                                </thead>
                                 <tr>
-                                    <th>Nombre</th>
+                                    <td>
+                                        <input type="text" class="form-control form-control-lg" placeholder="Huevo" name="fnombre" id="fnombre" maxlength="60" required>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tr>
-                                <td>
-                                    <input type="text" class="form-control form-control-lg" placeholder="Huevo" name="fnombre" id="fnombre" required>
-                                </td>
-                            </tr>
-                            <thead class="ocultar_empresa">
+                                <thead class="ocultar_empresa">
+                                    <tr>
+                                        <th>Apellidos</th>
+                                    </tr>
+                                </thead>
+                                <tr class="ocultar_empresa">
+                                    <td>
+                                        <input type="text" class="form-control form-control-lg" name="fapellidos" id="fapellidos" placeholder="García García" maxlength="60" required>
+                                    </td>
+                                </tr>
+                                <thead class="ocultar_empresa">
+                                    <tr>
+                                        <th>Fecha de Nacimiento</th>
+                                    </tr>
+                                </thead>
+                                <tr class="ocultar_empresa">
+                                    <td>
+                                        <input type="text" name="ffechaNacimiento" id="ffechaNacimiento" class="form-control form-control-lg" placeholder="01-01-1991" onchange="validarCumple(ffechaNacimiento.value)" required>
+                                    </td>
+                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
                                 <tr>
-                                    <th>Apellidos</th>
+                                    <td>
+                                        <input name="femail" id="femail" type="email" name="email" class="form-control form-control-lg" placeholder="huevito@gmail.com" onchange="validarMail(femail.value)" required>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tr class="ocultar_empresa">
-                                <td>
-                                    <input type="text" class="form-control form-control-lg" name="fapellidos" id="fapellidos" placeholder="García García" required>
-                                </td>
-                            </tr>
-                            <thead class="ocultar_empresa">
+                                <thead>
+                                    <tr>
+                                        <th>Número de teléfono</th>
+                                    </tr>
+                                </thead>
                                 <tr>
-                                    <th>Fecha de Nacimiento</th>
+                                    <td>
+                                        <input name="ftelefono" id="ftelefono" type="tel" class="form-control form-control-lg" placeholder="612-123-123" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" onchange="validarTelefono(ftelefono.value)" required>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tr class="ocultar_empresa">
-                                <td>
-                                    <input type="text" name="ffechaNacimiento" id="ffechaNacimiento" class="form-control form-control-lg" placeholder="01-01-1991" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" required>
-                                </td>
-                            </tr>
-                            <thead>
+                                <thead>
+                                    <tr>
+                                        <th>Datos de facturación</th>
+                                    </tr>
+                                </thead>
                                 <tr>
-                                    <th>Email</th>
+                                    <td>
+                                        <input name="fdatosFacturacion" id="fdatosFacturacion" type="text" class="form-control form-control-lg" placeholder="0000-0000-0000-0000" pattern="/^([0-9]{4}( |\-)){3}[0-4]{4}$/" onchange="validarFacturacion(fdatosFacturacion.value)" required>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tr>
-                                <td>
-                                    <input name="femail" id="femail" type="email" name="email" class="form-control form-control-lg" placeholder="huevito@gmail.com" onchange="validarMail(email.value)" required>
-                                </td>
-                            </tr>
-                            <thead>
+                                <thead>
+                                    <tr>
+                                        <th>Contraseña</th>
+                                    </tr>
+                                </thead>
                                 <tr>
-                                    <th>Número de teléfono</th>
+                                    <td>
+                                        <input id="fpassword" name="fpassword" type="password" class="form-control form-control-lg" placeholder="password" onchange="validarContrasena(fpassword.value)" required>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tr>
-                                <td>
-                                    <input name="ftelefono" id="ftelefono" type="tel" class="form-control form-control-lg" placeholder="612-123-123" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" required>
-                                </td>
-                            </tr>
-                            <thead>
+                                <thead>
+                                    <tr>
+                                        <th>Sobre ti</th>
+                                    </tr>
+                                </thead>
                                 <tr>
-                                    <th>Datos de facturación</th>
-                                </tr>
-                            </thead>
-                            <tr>
-                                <td>
-                                    <input name="fdatosFacturacion" id="fdatosFacturacion" type="text" class="form-control form-control-lg" placeholder="0000-0000-0000-0000" pattern="/^([0-9]{4}( |\-)){3}[0-4]{4}$/" required>
-                                </td>
-                            </tr>
-                            <thead>
-                                <tr>
-                                    <th>Contraseña</th>
-                                </tr>
-                            </thead>
-                            <tr>
-                                <td>
-                                    <input id="fpassword" name="fpassword" type="password" class="form-control form-control-lg" placeholder="password" required>
-                                </td>
-                            </tr>
-                            <thead>
-                                <tr>
-                                    <th>Sobre ti</th>
-                                </tr>
-                            </thead>
-                            <tr>
-                                <td>
-                                    <textarea name="fdatosAcademicos" id="fdatosAcademicos" name="datos_academicos" class="form-control form-control-lg" required rows=" 10">
+                                    <td>
+                                        <textarea name="fdatosAcademicos" id="fdatosAcademicos" name="datos_academicos" class="form-control form-control-lg" rows=" 10" maxlength="100">
                                     </textarea>
-                                </td>
-                            </tr>
-                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="boton_tabla_cerrar">Cerrar</button>
@@ -288,7 +290,7 @@
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-7 text-center">
-                                <button class="prev-boton boton m-1" href="carousel-cursos" data-slide="prev">Previo</button>
+                                <button class="prev-boton boton m-1 " href="carousel-cursos" data-slide="prev">Previo</button>
                                 <button class="next-boton boton m-1" href="carousel-cursos" data-slide="next">Siguiente</button>
                             </div>
                         </div>
@@ -388,14 +390,75 @@
                             </div>
                         </div>
                         <div class="col-md-8">
-                            <button type="submit" class="boton" onclick="enviarPregunta()">Enviar</button>
+                            <button type="submmit" id="botonGuardaCambios" class="btn btn-success btn-lg mr-2" onclick="enviarPregunta()">Enviar</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
         <!-- footer -->
-        <footer class="footer">
+        <footer class="card-footer">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-offset-12">
+                        <div class="widget-a">
+                            <div class="w-header-a">
+                                <h3 class="w-title-a text-brand text-success">Atenea Formación</h3>
+                            </div>
+                            <div class="w-body-a">
+                                <p class="w-text-a color-text-a">
+                                    Plataforma de cursos online
+                                </p>
+                            </div>
+                            <div class="w-footer-a">
+                                <ul class="list-unstyled">
+                                    <li class="color-a">
+                                        <span class="color-text-a">Teléfono: </span> atenea@formacion.com
+                                    </li>
+                                    <li class="color-a">
+                                        <span class="color-text-a">Email: </span> +34 91 200 12 34
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="socials-a">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <!-- target blank sirve para que el enlace se abra en una nueva página -->
+                                        <a href="https://www.facebook.com/" target="_blank">
+                                            <i class="fab fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="https://twitter.com/" target="_blank">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="https://www.instagram.com/" target="_blank">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="https://github.com/" target="_blank">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <nav class="nav-footer">
+                        </nav>
+                        <div class="copyright-footer">
+                            <p class="copyright color-text-a">
+                                &copy; Copyright
+                                <span class="color-a">AteneaFormacion</span> All Rights Reserved.
+                            </p>
+                        </div>
+                        <div class="credits">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </footer>
         <script>
         /*MODAL ALTA USUARIO*/
@@ -520,7 +583,7 @@
         $('#boton_login').off('click').on('click', function() {
             datos = $('#login_inputs :input').serialize();
             if (datos == "login_email=&login_pass=") {
-                break;
+                return;
             }
             console.log(datos);
             send_post('log_in', datos);

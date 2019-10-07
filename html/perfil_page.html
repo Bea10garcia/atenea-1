@@ -274,7 +274,9 @@
                                 </div>
                                 <button type="button" class="btn btn-warning btn-lg" style="margin: 20px">Continuar lección 23</button>
                             </div>
+                            
                         </div>
+                        <button id="boton_ir_busqueda" type="button" class="btn btn-warning btn-lg" style="margin: 20px">Ver más cursos</button>
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
@@ -504,6 +506,11 @@
                 break;
         }
     }
+    $('#boton_ir_busqueda').off('click').on('click', function() {
+            sessionStorage.setItem('usuario', 1);
+            window.location.href = 'filterpage.html';
+
+        })
     
     var id = sessionStorage.getItem('idUsuario');
     console.log("EL ID ES " + id);
