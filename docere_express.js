@@ -385,40 +385,82 @@ app.post('/filtrar_por_palabra', function(req, res) {
     })
 });
 //CARGAR LOS VIDEOS DE LOS CURSOS EN LOS QUE ESTA EL USUARIO
-app.post('/cargar_videos_usuario',function(req,res){
+app.post('/cargar_videos_usuario', function(req, res) {
     var datos = req.body;
 
     var idusuario = datos.idusuario;
-    console.log('ESTOY CARGANDO LOS VIDEOS DEL ' +idusuario);
-    var sentencia ="SELECT cu.tcursos_idCurso, v.leccion, v.url ,cu.avance, c.titulo FROM tusers_has_tcourses cu INNER JOIN tvideos v ON v.idcurso = cu.tcursos_idCurso INNER JOIN tcursos c ON c.idCurso= cu.tcursos_idCurso WHERE tusuarios_idUsuario = "+idusuario+" AND v.leccion = cu.idUltimoVideo;"
+    console.log('ESTOY CARGANDO LOS VIDEOS DEL ' + idusuario);
+    var sentencia = "SELECT cu.tcursos_idCurso, v.leccion, v.url ,cu.avance, c.titulo FROM tusers_has_tcourses cu INNER JOIN tvideos v ON v.idcurso = cu.tcursos_idCurso INNER JOIN tcursos c ON c.idCurso= cu.tcursos_idCurso WHERE tusuarios_idUsuario = " + idusuario + " AND v.leccion = cu.idUltimoVideo;"
     console.log(sentencia);
     con.query(sentencia, function(err, result, fields) {
         carrousel_curso = '';
         for (var i = 0; i < result.length; i++) {
-            carrousel_curso +='<div class="carousel-item '+(i==0?'active"':'"')+'><iframe class="embed-responsive-item" title="video'+result[i].leccion+'" style="width:100%" type="text/html" width="640" height="385" src="'+result[i].url+'" frameborder="0" allowfullscreen></iframe><h3>'+result[i].titulo+'</h3><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div></div><button type="button" data-url="'+result[i].url+'" class="btn btn-warning btn-lg" style="margin: 20px">Continuar lección '+result[i].leccion+'</button></div>'
+            carrousel_curso += '<div class="carousel-item ' + (i == 0 ? 'active"' : '"') + '><iframe class="embed-responsive-item" title="video' + result[i].leccion + '" style="width:100%" type="text/html" width="640" height="385" src="' + result[i].url + '" frameborder="0" allowfullscreen></iframe><h3>' + result[i].titulo + '</h3><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div></div><button type="button" data-url="' + result[i].url + '" class="btn btn-warning btn-lg" style="margin: 20px">Continuar lección ' + result[i].leccion + '</button></div>'
         }
-        carrousel_curso +='</div>';
+        carrousel_curso += '</div>';
 
         res.send(carrousel_curso);
     })
 });
+
+
+
 //COMPRAMOS UN CURSO
 app.post('/comprar_curso', function(req, res) {
+	console.log('compro un curso sin licencia');
+	console.log(datos);
     var datos = req.body;
     var idcurso = datos.idcurso;
     var idusuario = datos.idusuario;
-
+    var idlicencia = datos.idlicencia;
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
     today = mm + '/' + dd + '/' + yyyy;
-    sentencia= "INSERT INTO tusers_has_tcourses (tusuarios_idUsuario, tcursos_IdCurso, alta, avance, idUltimoVideo) VALUES (" + idusuario + "," + idcurso + ",'" + today + "','0',1);";
+    sentencia = "INSERT INTO tusers_has_tcourses (tusuarios_idUsuario, tcursos_IdCurso, alta, avance, idUltimoVideo, idLicencia) VALUES (" + idusuario + "," + idcurso + ",'" + today + "','0',1,"+idlicencia+");";
     console.log(sentencia);
     con.query(sentencia, function(err, result, fields) {
-        console.log('EL USUARIO '+ idusuario+ ' COMPRA EL CURSO ' + idcurso)
+        console.log('EL USUARIO ' + idusuario + ' COMPRA EL CURSO ' + idcurso)
         res.send();
     })
+});
+//COMPRAR CURSO CON LICENCIAS
+
+app.post('/comprar_curso_licencia', function(req, res) {
+	console.log('compro un curso con licencia');
+    var datos = req.body;
+    console.log(datos);
+    var idcurso = datos.idcurso;
+    var idusuario = datos.idusuario;
+    var licencia = datos.licencia;
+    licencia=licencia.substring(1, licencia.length);
+    //PRIMERO COMPROBAMOS SI ESE CURSO TIENE LICENCIAS COMPRADAS
+    con.query("SELECT c.idCurso, c.titulo, l.licencia, l.nroLicencias, l.idLicencia FROM tcursos c INNER JOIN tlicencias l ON l.idCurso=c.idCurso WHERE c.idCurso=" + idcurso + ";", function(err, result, fileds) {
+        if (err) throw err;
+        
+        if (result || result[0].nroLicencias >0) {
+        	console.log('El reultado es ' + result[0].licencia);
+        	console.log(licencia);
+            if (result[0].licencia == licencia) {
+
+            	nuevoNumLicencias=result[0].nroLicencias-1;
+            	var idlicencia= result[0].idLicencia.toString();
+            	res.send(idlicencia);
+                con.query("UPDATE tlicencias SET nroLicencias ="+nuevoNumLicencias+"",function(err,result){
+                	console.log("el nuevo num licencias es " + nuevoNumLicencias)
+                	
+                })
+            } else {
+                res.send('licencia_incorrecta');
+            };
+
+        } else {
+            res.send('no_contratado');
+        }
+    });
+    //SEGUNDO SACAMOS LA LICENCIA PARA COMPRARLO
+
 });
 
 app.use(express.static('html'));

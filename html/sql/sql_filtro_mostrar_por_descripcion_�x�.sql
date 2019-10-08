@@ -1,0 +1,1 @@
+SELECT * FROM tcursos WHERE descripcion LIKE "%ing%";

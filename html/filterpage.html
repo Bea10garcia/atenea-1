@@ -117,9 +117,6 @@
                 <form class="col-md-6 col-lg-6">
                     <div class="input-group input-group-lg">
                         <input id="busq_palabra" type="text" class="form-control" placeholder="Search">
-                        <div class="input-group-btn">
-                            <button id="boton_busq_palabra" class="btn " type="button"><i class="fas fa-search"></i></button>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -128,7 +125,7 @@
     <!-- AQUI VA EL MODAL QUE SE LLAMARA AL CLICKAR SOBRE LA IMAGEN-->
     <!-- Modal -->
     <div class="modal fade" id="modal_curso" tabindex="-1" role="dialog" aria-labelledby="modal_alta_user" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" style="width: 50vw" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modal_titulo">Introduce tus Datos</h5>
@@ -137,12 +134,14 @@
                     </button>
                 </div>
                 <div class="embed-responsive embed-responsive-16by9 modal-body">
-                    <iframe class="embed-responsive-item" width="100%" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                    <iframe class="embed-responsive-item" style=" height:35vh" src="https://www.youtube.com/embed/tgbNymZ7vqY">
                     </iframe>
                     <p id="modal_parrafo">algun parrafo aqui</p>
                 </div>
                 <div class="modal-footer">
+                    <input type="hidden" class="form-control" id="codigo" placeholder="Mete tu código">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="boton_curso_comprar">Comprar</button>
+                    <input type="checkbox" name="tengo_codigo" id="tengo_codigo">Código
                 </div>
             </div>
         </div>
@@ -254,7 +253,7 @@
     var filt_idioma = 1;
     var filt_profesor = 1;
     var filt_precio = 1;
-    var idcurso='';
+    var idcurso = '';
 
     function send_post(accion, datos) {
         console.log('envio_accion')
@@ -295,7 +294,7 @@
             case 'filtrar_por_palabra':
                 switch (data) {
                     case 'no_hay_cursos':
-                        alert('Los sentimos, no hay ningún curso con tus criterios de búsqueda');
+                        alert('Lo sentimos, no hay ningún curso con tus criterios de búsqueda');
                         break;
                     default:
                         $('#grid_cursos').html(data);
@@ -303,12 +302,27 @@
                             console.log("voy a mostrar el modal");
                             console.log($(this));
                             mostrar_modal($(this));
-
                         });
                         break;
                 }
+                break;
             case 'comprar_curso':
                 alert("Curso comprado con éxito");
+            case 'comprar_curso_licencia':
+                switch (data) {
+                    case 'no_contratado':
+                        alert('Lo sentimos, ninguna empresa ha contratado este curso... pero lo puedes contratar tú!');
+                        break;
+                    case 'licencia_incorrecta':
+                        alert('Parece que has introducido una licencia incorrecta... Inténtalo de nuevo o contacta con la empresa');
+                        break;
+                    default:
+                        console.log('La licencia tiene id ' + data)
+                        send_post('comprar_curso', 'idusuario='+idusuario+'&idcurso='+idcurso+'&idlicencia='+data);
+                        break;
+
+                }
+                break;
         }
     };
 
@@ -355,27 +369,44 @@
             console.log(sentencia);
             send_post('cargar_cursos', sentencia);
         });
-        $("#boton_busq_palabra").off('click').on('click', function() {
+        //AQUI EL INPUT DE BUSQUEDA SE PULSA CUANDO DAS A INTRO, el input esta atento a que se pulse intro
+
+
+
+
+
+    });
+    $("#busq_palabra").bind("keypress", {}, keypressInBox);
+
+    function keypressInBox(e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13) { //Enter keycode                        
+            e.preventDefault();
+
             var busqueda = $("#busq_palabra").val();
             if (busqueda) {
                 var sentencia = 'valor=' + busqueda;
                 console.log(sentencia);
                 send_post('filtrar_por_palabra', sentencia);
             }
-        });
-
-
-    });
+        }
+    };
 
     $("#boton_curso_comprar").off('click').on('click', function() {
-        console.log('oy al boton');
+        console.log('doy al boton');
         var indice = idcurso.indexOf("_") + 1;
         idcurso = idcurso.substring(indice, idcurso.length);
-        alert('el id del curso es ' + idcurso);
+
         if (idusuario) {
-            alert('el id usuario es ' + idusuario);
-            
-            send_post('comprar_curso','idusuario= '+ idusuario + '&idcurso= ' + idcurso);
+            if ($("#codigo").val()) {
+                var licencia = $("#codigo").val();
+                alert('el codigo es ' + licencia);
+                send_post('comprar_curso_licencia', 'idusuario= ' + idusuario + '&idcurso= ' + idcurso + '&licencia= ' + licencia);
+            } else {
+                alert('el id del curso es ' + idusuario);
+                send_post('comprar_curso', 'idusuario= ' + idusuario + '&idcurso= ' + idcurso + '&idlicencia= NULL');
+            }
+
         } else {
             alert('Te tienes que dar de alta como usuario para poder comprar');
 
@@ -388,13 +419,18 @@
         var url = thisObj.attr('data-video');
         var titulo = thisObj.attr('data-titulo');
         var descripcion = thisObj.attr('data-descripcion');
-        idcurso= thisObj.attr('id');
+        idcurso = thisObj.attr('id');
 
         $("#modal_titulo").text(titulo);
         $("#modal_parrafo").text(descripcion);
         $("iframe").attr('src', url);
         $("#modal_curso").modal();
     };
+    $("#tengo_codigo").click(function() {
+        $(this).attr('type', 'hidden');
+        $(this).text('');
+        $("#codigo").attr('type', 'text');
+    });
 
     send_post('filtros_cargar_idiomas', '')
     send_post('filtros_cargar_categorias', '')
