@@ -64,7 +64,7 @@ app.get('/', (req, res) => {
     return res.send('Esta es la home');
 });
 
-app.post('/subir', upload.single('file'), (req, res) =>{
+app.post('/subir', upload.single('file'), (req, res) => {
     console.log('La ruta de subida es $){req.hostname}/${req.file.path}');
     return res.send(req.file);
 });
@@ -110,7 +110,7 @@ app.post('/perfilEmpresa', function(req, res) {
 app.post('/numeroLicencia', function(req, res) {
     var id = req.body;
     console.log(id)
-    con.query("SELECT licencia FROM licencias WHERE idEmpresa='" + id + "'", function(err, result, fields) {       
+    con.query("SELECT licencia FROM licencias WHERE idEmpresa='" + id + "'", function(err, result, fields) {
         res.send(JSON.stringify(result));
         console.log(result)
     });
@@ -145,7 +145,7 @@ app.post('/ultimos_cursos', function(req, res) {
         if (err) throw err;
         car_curso = '';
         for (var i = 0; i < result.length; i++) {
-            car_curso += '<div class="ficha_curso item h-100 col-lg-4 align-self-stretch border boder-primary"><figure class="m-0"><a href="#"><img style ="width:100%" src="' + result[i].imagen + '" alt="Image" class=" img-fluid"></a></figure><div class="py-4 px-4"><span class="course-price">' + result[i].precio + '</span><div class="meta"><span class="icon-clock-o"></span>' + result[i].fecha_inclusion + '</div><h3><a href="#" id="link_to_curso">' + result[i].titulo + '</a></h3><p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit. </p></div><div class="d-flex border-top stats"><div class="py-3 px-4">2,193 students</div><div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div></div></div>';
+            car_curso += '<div class="ficha_curso item h-100 col-lg-12 align-self-stretch border boder-primary"><div class="pt-3"><figure class="m-0"><a href="#"><img style ="height:25vh; overflow:hidden" src="' + result[i].imagen + '" alt="Image" class=" img-fluid"></a></figure></div><div class="py-4 px-4"><span class="course-price">' + result[i].precio + '</span><div class="meta"><span class="icon-clock-o"></span>' + result[i].fecha_inclusion + '</div><h3><a href="#" id="link_to_curso">' + result[i].titulo + '</a></h3><p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit. </p></div><div class="d-flex border-top stats"><div class="py-3 px-4">2,193 students</div><div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div></div></div>';
         };
         res.send(car_curso);
     })
@@ -317,7 +317,7 @@ app.post('/log_in', function(req, res) {
     var datos = req.body;
     var email = datos.login_email;
     con.query("SELECT validado FROM atenea.tUsuarios WHERE email= '" + email + "';", function(err, result, fields) {
-        console.log('El valor de validado es '+result[0].validado);
+        console.log('El valor de validado es ' + result[0].validado);
         if (result[0].validado == 0) {
             res.send('no_validado');
         }
@@ -332,8 +332,8 @@ app.post('/log_in', function(req, res) {
                 var id = result[0].idUsuario;
                 var rol = result[0].rol;
                 console.log('!!!!!!!!!!!el ID es' + result[0].idUsuario);
-                 console.log('!!!!!!!!!!!el ROL es' + result[0].rol);
-                var data= { 'idUsuario': id, 'rol': rol };
+                console.log('!!!!!!!!!!!el ROL es' + result[0].rol);
+                var data = { 'idUsuario': id, 'rol': rol };
                 res.send(data);
 
 
@@ -350,15 +350,15 @@ app.post('/cargar_cursos', function(req, res) {
     var datos = req.body;
     console.log('cargando todos cursos');
     //console.log(datos.valor);
-    var sentencia= "SELECT c.idCurso, c.titulo, c.precio, c.imagen, c.descripcion, v.url FROM atenea.tcursos c INNER JOIN tvideos v ON c.idCurso = v.idcurso WHERE " +datos.valor+ " AND validado = '1' AND v.leccion='1';";
+    var sentencia = "SELECT c.idCurso, c.titulo, c.precio, c.imagen, c.descripcion, v.url FROM atenea.tcursos c INNER JOIN tvideos v ON c.idCurso = v.idcurso WHERE " + datos.valor + " AND validado = '1' AND v.leccion='1';";
     console.log(sentencia);
-    
+
     con.query(sentencia, function(err, result, fields) {
         if (err) throw err;
         todoscursos = '';
         for (var i = 0; i < result.length; i++) {
             //console.log('meto curso' + result[i].titulo);
-            todoscursos += '<div class="ficha_curso p-2 col-lg-4 col-md-6 col-sm-12"><div class="border m-1"><div class="item align-self-stretch  p-3"><figure class="m-0" style="height:25vh; overflow:hidden"><a ><img src="'+result[i].imagen+'" alt="Image" class=" img-fluid" style="object-fit: cover"></a></figure></div><div class="px-3 row"><div style="height:10vh; text-align: center;" class="overflow-auto col-12">'+result[i].titulo+'</div></div><div class="px-3 row" style="text-align: center;"><div class="col-12 course-price">'+result[i].precio+' €</div></div><div class="d-flex justify-content-center m-2"><button type="button" class="boton_curso btn btn-success"  data-toggle="modal" data-video = "'+result[i].url+'" data-titulo= "'+result[i].titulo+'" data-descripcion= "'+result[i].descripcion+'" id="curso_'+result[i].idCurso+'">Más Info</button></div></div></div>';
+            todoscursos += '<div class="ficha_curso p-2 col-lg-4 col-md-6 col-sm-12"><div class="border m-1"><div class="item align-self-stretch  p-3"><figure class="m-0" style="height:25vh; overflow:hidden"><a ><img src="' + result[i].imagen + '" alt="Image" class=" img-fluid" style="object-fit: cover"></a></figure></div><div class="px-3 row"><div style="height:10vh; text-align: center;" class="overflow-auto col-12">' + result[i].titulo + '</div></div><div class="px-3 row" style="text-align: center;"><div class="col-12 course-price">' + result[i].precio + ' €</div></div><div class="d-flex justify-content-center m-2"><button type="button" class="boton_curso btn btn-success"  data-toggle="modal" data-video = "' + result[i].url + '" data-titulo= "' + result[i].titulo + '" data-descripcion= "' + result[i].descripcion + '" id="curso_' + result[i].idCurso + '">Más Info</button></div></div></div>';
         };
         res.send(todoscursos);
         console.log("ENVIO LOS CURSOS");
@@ -369,21 +369,58 @@ app.post('/cargar_cursos', function(req, res) {
 app.post('/filtrar_por_palabra', function(req, res) {
     var datos = req.body;
     console.log(datos.valor);
-    var sentencia="SELECT c.idCurso, c.titulo, c.precio, c.imagen, c.descripcion, v.url FROM atenea.tcursos c INNER JOIN tvideos v ON c.idCurso = v.idcurso WHERE titulo LIKE '%"+datos.valor+"%' AND validado = '1' AND v.leccion='1';";
+    var sentencia = "SELECT c.idCurso, c.titulo, c.precio, c.imagen, c.descripcion, v.url FROM atenea.tcursos c INNER JOIN tvideos v ON c.idCurso = v.idcurso WHERE titulo LIKE '%" + datos.valor + "%' AND validado = '1' AND v.leccion='1';";
     console.log(sentencia);
     con.query(sentencia, function(err, result, fields) {
         if (err) throw err;
-        if(result.length==0){
+        if (result.length == 0) {
             res.send('no_hay_cursos');
-        }else{
-            cursos_filtrados='';
+        } else {
+            cursos_filtrados = '';
             for (var i = 0; i < result.length; i++) {
-                cursos_filtrados+='<div class="ficha_curso p-2 col-lg-4 col-md-6 col-sm-12"><div class="border m-1"><div class="item align-self-stretch  p-3"><figure class="m-0" style="height:25vh; overflow:hidden"><a ><img src="'+result[i].imagen+'" alt="Image" class=" img-fluid" style="object-fit: cover"></a></figure></div><div class="px-3 row"><div style="height:10vh; text-align: center;" class="overflow-auto col-12">'+result[i].titulo+'</div></div><div class="px-3 row" style="text-align: center;"><div class="col-12 course-price">'+result[i].precio+' €</div></div><div class="d-flex justify-content-center m-2"><button type="button" class="boton_curso btn btn-success"  data-toggle="modal" data-video = "'+result[i].url+'" data-titulo= "'+result[i].titulo+'" data-descripcion= "'+result[i].descripcion+'" id="curso_'+result[i].idCurso+'">Más Info</button></div></div></div>';
+                cursos_filtrados += '<div class="ficha_curso p-2 col-lg-4 col-md-6 col-sm-12"><div class="border m-1"><div class="item align-self-stretch  p-3"><figure class="m-0" style="height:25vh; overflow:hidden"><a ><img src="' + result[i].imagen + '" alt="Image" class=" img-fluid" style="object-fit: cover"></a></figure></div><div class="px-3 row"><div style="height:10vh; text-align: center;" class="overflow-auto col-12">' + result[i].titulo + '</div></div><div class="px-3 row" style="text-align: center;"><div class="col-12 course-price">' + result[i].precio + ' €</div></div><div class="d-flex justify-content-center m-2"><button type="button" class="boton_curso btn btn-success"  data-toggle="modal" data-video = "' + result[i].url + '" data-titulo= "' + result[i].titulo + '" data-descripcion= "' + result[i].descripcion + '" id="curso_' + result[i].idCurso + '">Más Info</button></div></div></div>';
             };
             res.send(cursos_filtrados);
         }
     })
 });
+//CARGAR LOS VIDEOS DE LOS CURSOS EN LOS QUE ESTA EL USUARIO
+app.post('/cargar_videos_usuario',function(req,res){
+    var datos = req.body;
+
+    var idusuario = datos.idusuario;
+    console.log('ESTOY CARGANDO LOS VIDEOS DEL ' +idusuario);
+    var sentencia ="SELECT cu.tcursos_idCurso, v.leccion, v.url ,cu.avance, c.titulo FROM tusers_has_tcourses cu INNER JOIN tvideos v ON v.idcurso = cu.tcursos_idCurso INNER JOIN tcursos c ON c.idCurso= cu.tcursos_idCurso WHERE tusuarios_idUsuario = "+idusuario+" AND v.leccion = cu.idUltimoVideo;"
+    console.log(sentencia);
+    con.query(sentencia, function(err, result, fields) {
+        carrousel_curso = '';
+        for (var i = 0; i < result.length; i++) {
+            carrousel_curso +='<div class="carousel-item '+(i==0?'active"':'"')+'><iframe class="embed-responsive-item" title="video'+result[i].leccion+'" style="width:100%" type="text/html" width="640" height="385" src="'+result[i].url+'" frameborder="0" allowfullscreen></iframe><h3>'+result[i].titulo+'</h3><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div></div><button type="button" data-url="'+result[i].url+'" class="btn btn-warning btn-lg" style="margin: 20px">Continuar lección '+result[i].leccion+'</button></div>'
+        }
+        carrousel_curso +='</div>';
+
+        res.send(carrousel_curso);
+    })
+});
+//COMPRAMOS UN CURSO
+app.post('/comprar_curso', function(req, res) {
+    var datos = req.body;
+    var idcurso = datos.idcurso;
+    var idusuario = datos.idusuario;
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = mm + '/' + dd + '/' + yyyy;
+    sentencia= "INSERT INTO tusers_has_tcourses (tusuarios_idUsuario, tcursos_IdCurso, alta, avance, idUltimoVideo) VALUES (" + idusuario + "," + idcurso + ",'" + today + "','0',1);";
+    console.log(sentencia);
+    con.query(sentencia, function(err, result, fields) {
+        console.log('EL USUARIO '+ idusuario+ ' COMPRA EL CURSO ' + idcurso)
+        res.send();
+    })
+});
+
 app.use(express.static('html'));
 
 

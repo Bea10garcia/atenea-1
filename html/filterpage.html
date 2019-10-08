@@ -136,8 +136,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <iframe width="100%" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                <div class="embed-responsive embed-responsive-16by9 modal-body">
+                    <iframe class="embed-responsive-item" width="100%" src="https://www.youtube.com/embed/tgbNymZ7vqY">
                     </iframe>
                     <p id="modal_parrafo">algun parrafo aqui</p>
                 </div>
@@ -249,11 +249,12 @@
     //VARIABLES GENERALES
     //EN LOS FILTROS, EMPEZAMOS DICIENDO QUE SON = 1 PORQUE EN SQL DECIR WHERE 1 IMPLICA SELECCIONAR TODOS
     var apiKey = 'AIzaSyBzbIY8b64Gr3yCrfdLwNJljOaQGJZFfco';
-    var usuario = sessionStorage.getItem('usuario');
+    var idusuario = sessionStorage.getItem('idusuario');
     var filt_categ = 1;
     var filt_idioma = 1;
     var filt_profesor = 1;
     var filt_precio = 1;
+    var idcurso='';
 
     function send_post(accion, datos) {
         console.log('envio_accion')
@@ -285,6 +286,11 @@
             case 'cargar_cursos':
                 console.log("RECIBO CURSOS")
                 $('#grid_cursos').html(data);
+                $(".boton_curso").off('click').on('click', function() {
+                    console.log("voy a mostrar el modal");
+                    console.log($(this));
+                    mostrar_modal($(this));
+                });
                 break;
             case 'filtrar_por_palabra':
                 switch (data) {
@@ -293,8 +299,16 @@
                         break;
                     default:
                         $('#grid_cursos').html(data);
+                        $(".boton_curso").off('click').on('click', function() {
+                            console.log("voy a mostrar el modal");
+                            console.log($(this));
+                            mostrar_modal($(this));
+
+                        });
                         break;
                 }
+            case 'comprar_curso':
+                alert("Curso comprado con éxito");
         }
     };
 
@@ -349,23 +363,39 @@
                 send_post('filtrar_por_palabra', sentencia);
             }
         });
-        $(".boton_curso").on('click', function() {
-            console.log("voy a mostrar el modal")
-            mostrar_modal($(this));
-        });
 
-        function mostrar_modal(thisObj) {
-            var url = thisObj.attr('data-video');
-            var titulo = thisObj.attr('data-titulo');
-            var descripcion = thisObj.attr('data-descripcion');
-            alert(titulo);
-            $("#modal_titulo").text(titulo);
-            $("#modal_parrafo").text(descripcion);
-            $("iframe").attr('src', url);
-            $("#modal_curso").modal();
-        };
 
     });
+
+    $("#boton_curso_comprar").off('click').on('click', function() {
+        console.log('oy al boton');
+        var indice = idcurso.indexOf("_") + 1;
+        idcurso = idcurso.substring(indice, idcurso.length);
+        alert('el id del curso es ' + idcurso);
+        if (idusuario) {
+            alert('el id usuario es ' + idusuario);
+            
+            send_post('comprar_curso','idusuario= '+ idusuario + '&idcurso= ' + idcurso);
+        } else {
+            alert('Te tienes que dar de alta como usuario para poder comprar');
+
+        }
+
+
+    });
+
+    function mostrar_modal(thisObj) {
+        var url = thisObj.attr('data-video');
+        var titulo = thisObj.attr('data-titulo');
+        var descripcion = thisObj.attr('data-descripcion');
+        idcurso= thisObj.attr('id');
+
+        $("#modal_titulo").text(titulo);
+        $("#modal_parrafo").text(descripcion);
+        $("iframe").attr('src', url);
+        $("#modal_curso").modal();
+    };
+
     send_post('filtros_cargar_idiomas', '')
     send_post('filtros_cargar_categorias', '')
     send_post('filtros_cargar_profesores', '')
