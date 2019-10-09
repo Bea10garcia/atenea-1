@@ -27,6 +27,8 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <!-- enlace Bea a biblioteca sweet alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style type="text/css">
+    </style>
 </head>
 
 <body>
@@ -93,11 +95,86 @@
             </div>
         </div>
     </div>
+    <!--CURSOS CONTRATADOS-->
+    <div class="container-fluid property-single nav-arrow-b">
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-md-offset-6 text-center">
+                <div class="title-box">
+                    <h2 class="title-a text-success">Mis Cursos Contratados</h2>
+                </div>
+                <div id="cursos_contratados">
+                    <div class="div_lista_cursos row justify-content-left mt-2 border p-1">
+                        <div class="col-7 mt-2" style="display: inline-block;">
+                            <h5>Curso de </h5>
+                        </div>
+                        <div class="col-3 mt-2">
+                            <h6>X Licencias</h6>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-secondary sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false">
+                                Empleados
+                            </button>
+                        </div>
+                    </div>
+                    <div class="collapse border container" id="collapseExample">
+                        <div class="div_empleados row justify-content-left ml-10 align-items-center p-1">
+                            <div class="col-6 ">
+                                <h6>Pedro</h6>
+                            </div>
+                            <div class="col-4">
+                                <h7>Lección 3</h7>
+                            </div>
+                        </div>
+                        <div class="div_empleados row justify-content-left ml-10 align-items-center p-1">
+                            <div class="col-6 ">
+                                <h6>Pedro</h6>
+                            </div>
+                            <div class="col-4">
+                                <h7>Lección 3</h7>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div_lista_cursos row justify-content-left mt-2 border p-1">
+                        <div class="col-7 mt-2" style="display: inline-block;">
+                            <h5>Curso de </h5>
+                        </div>
+                        <div class="col-3 mt-2">
+                            <h6>X Licencias</h6>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-secondary sm" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false">
+                                Empleados
+                            </button>
+                        </div>
+                    </div>
+                    <div class="collapse border container" id="collapseExample1">
+                        <div class="div_empleados row justify-content-left ml-10 align-items-center p-1">
+                            <div class="col-6 ">
+                                <h6>Pedro</h6>
+                            </div>
+                            <div class="col-4">
+                                <h7>Lección 3</h7>
+                            </div>
+                        </div>
+                        <div class="div_empleados row justify-content-left ml-10 align-items-center p-1">
+                            <div class="col-6 ">
+                                <h6>Pedro</h6>
+                            </div>
+                            <div class="col-4">
+                                <h7>Lección 3</h7>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="boton_ir_busqueda" type="button" class="btn btn-warning btn-lg" style="margin: 20px">Contratar más cursos</button>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="row justify-content-center mt-5">
             <div class="col-md-4">
                 <div class="card" style="width:400px">
-                    <img id= "fotoperfil" class="card-img-top" src="" name="usuario" alt="usuarioFoto" style="width:100%" style="border-radius: 50px">
+                    <img id="fotoperfil" class="card-img-top" src="" name="usuario" alt="usuarioFoto" style="width:100%" style="border-radius: 50px">
                     <!-- de esta forma se transforma un input browser en botón, así el usuario carga su foto de perfil -->
                     <label class="btn btn-success">
                         Cambiar Foto <input type="file" hidden>
@@ -264,6 +341,9 @@
         </div>
     </footer>
     <script>
+    var id = sessionStorage.getItem('idUsuario');
+    var curso_clickado = '';
+
     function send_post(accion, datos) {
         $.ajax({
             type: "POST",
@@ -281,13 +361,15 @@
 
     function procesa_datos_recibidos(data, status, accion, datos) {
         console.log("DA" + data);
-        dat = JSON.parse(data);
-        console.log(dat);
-        console.log("DATOS" + dat[0].nombre);
+
         switch (accion) {
+
             case 'perfilEmpresa':
+                dat = JSON.parse(data);
+                console.log(dat);
+                console.log("DATOS" + dat[0].nombre);
                 console.log("hola" + dat[0].alias);
-                $('#saludoUsuario').html("Bienvenido de nuevo, "+dat[0].nombre);
+                $('#saludoUsuario').html("Bienvenido de nuevo, " + dat[0].nombre);
                 $('#tarjetaNombre').html(dat[0].nombre + " " + dat[0].apellidos);
                 $('#inputNombre').val(dat[0].nombre + " " + dat[0].apellidos);
                 //$('#inputNombre').val(dat[0].apellidos);
@@ -297,14 +379,33 @@
                 $('#tarjeta').val(dat[0].datosFacturacion);
                 $('#numeroCif').val(dat[0].cif);
                 $('#password').val(dat[0].password);
-                $('#fotoperfil').attr('src',dat[0].foto);
+                $('#fotoperfil').attr('src', dat[0].foto);
+                break;
+            case 'cargar_cursos_contratados':
+                $("#cursos_contratados").html(data);
+                $(".ver_empleados").off('click').on('click', function() {
+                    var idLicencia = $(this).attr('data-licencia');
+                    console.log(idLicencia);
+                    curso_clickado = $(this).attr('data-target');
+                    alert('El curso clickado es ' + curso_clickado)
+                    send_post('cargar_empleados', 'idLicencia=' + idLicencia)
+                });
+                break;
+            case 'cargar_empleados':
+                $(curso_clickado).append(data);
                 break;
         }
     }
+    $('#boton_ir_busqueda').off('click').on('click', function() {
+        sessionStorage.setItem('rol', 4);
+        sessionStorage.setItem('idusuario', id);
+        window.location.href = 'filterpage.html';
 
-    var id = sessionStorage.getItem('idUsuario');
+    })
+
+    send_post("cargar_cursos_contratados", 'idUsuario=' + id);
     console.log("EL ID ES " + id);
-    send_post("perfilEmpresa", 'idUsuario=' + sessionStorage.getItem('idUsuario'));
+    send_post("perfilEmpresa", 'idUsuario=' + id);
     //send_post("perfilEmpresa", 'idUsuario=8');
     </script>
     <!-- JavaScript Libraries -->

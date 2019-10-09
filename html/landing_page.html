@@ -463,6 +463,7 @@
         <script>
         /*MODAL ALTA USUARIO*/
         var rol_escogido;
+        var rol_login;
         /*EL CARROUSEL*/
         var owl = $('.owl-carousel');
 
@@ -537,18 +538,24 @@
                             console.log(data);
                             switch (data.rol) {
                                 case 1:
+                                    rol_login=1;
                                     window.location.href = '#';
+                                    
                                     console.log(data);
                                     break;
                                 case 2:
+                                    rol_login=2;
                                     window.location.href = 'perfil_page.html';
+
                                     console.log(data);
                                     break;
                                 case 3:
+                                    rol_login=3;
                                     window.location.href = 'perfil_page_prof.html';
                                     console.log(data);
                                     break;
                                 case 4:
+                                    rol_login=4;
                                     window.location.href = 'perfil_page_empresa.html';
                                     console.log(data);
                                     break;

@@ -491,6 +491,7 @@
         }
     }
     $('#boton_ir_busqueda').off('click').on('click', function() {
+        sessionStorage.setItem('rol', 2);
         sessionStorage.setItem('idusuario', id);
         window.location.href = 'filterpage.html';
 

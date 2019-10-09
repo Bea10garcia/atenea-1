@@ -139,9 +139,20 @@
                     <p id="modal_parrafo">algun parrafo aqui</p>
                 </div>
                 <div class="modal-footer">
+                    <div id="div_contratar_alumnos">
+                        <input type="checkbox" name="tengo_codigo" id="tengo_codigo">Código
+                    </div>
                     <input type="hidden" class="form-control" id="codigo" placeholder="Mete tu código">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="boton_curso_comprar">Comprar</button>
-                    <input type="checkbox" name="tengo_codigo" id="tengo_codigo">Código
+                    <div class="row" id="div_contratar_empresa" style="display:none;">
+                        <h6>Cantidad</h6>
+                        <input class="empresa_contrata" type="number" name="nrolicencias" id="nrolicencias">
+                        <h6>Código</h6>
+                        <input class="empresa_contrata" type="text" name="codigocreado" id="codigocreado" placeholder="crea el código">
+                    </div>
+                    <div id="div_precio">
+                        <h3><span id="precio"></span>€</h3>
+                    </div>
                 </div>
             </div>
         </div>
@@ -249,11 +260,14 @@
     //EN LOS FILTROS, EMPEZAMOS DICIENDO QUE SON = 1 PORQUE EN SQL DECIR WHERE 1 IMPLICA SELECCIONAR TODOS
     var apiKey = 'AIzaSyBzbIY8b64Gr3yCrfdLwNJljOaQGJZFfco';
     var idusuario = sessionStorage.getItem('idusuario');
+    var rol = sessionStorage.getItem('rol');
     var filt_categ = 1;
     var filt_idioma = 1;
     var filt_profesor = 1;
     var filt_precio = 1;
     var idcurso = '';
+    console.log(idusuario);
+
 
     function send_post(accion, datos) {
         console.log('envio_accion')
@@ -290,6 +304,7 @@
                     console.log($(this));
                     mostrar_modal($(this));
                 });
+                $(document).on("change, mouseup, keyup", "#nrolicencias", updatePrice);
                 break;
             case 'filtrar_por_palabra':
                 switch (data) {
@@ -303,11 +318,13 @@
                             console.log($(this));
                             mostrar_modal($(this));
                         });
+                        $(document).on("change, mouseup, keyup", "#nrolicencias", updatePrice);
                         break;
                 }
                 break;
             case 'comprar_curso':
                 alert("Curso comprado con éxito");
+                break;
             case 'comprar_curso_licencia':
                 switch (data) {
                     case 'no_contratado':
@@ -318,11 +335,13 @@
                         break;
                     default:
                         console.log('La licencia tiene id ' + data)
-                        send_post('comprar_curso', 'idusuario='+idusuario+'&idcurso='+idcurso+'&idlicencia='+data);
+                        send_post('comprar_curso', 'idusuario=' + idusuario + '&idcurso=' + idcurso + '&idlicencia=' + data);
                         break;
 
                 }
                 break;
+            case 'empresa_compra_curso':
+                alert('Has comprado el curso. Acuérdate de facilitar el código a tus empleados para que se puedan inscribir')
         }
     };
 
@@ -398,13 +417,21 @@
         idcurso = idcurso.substring(indice, idcurso.length);
 
         if (idusuario) {
-            if ($("#codigo").val()) {
-                var licencia = $("#codigo").val();
-                alert('el codigo es ' + licencia);
-                send_post('comprar_curso_licencia', 'idusuario= ' + idusuario + '&idcurso= ' + idcurso + '&licencia= ' + licencia);
+            if (rol == 4) {
+                
+                var numlicenc =  $('#nrolicencias').val();
+                var codigolic =  $('#codigocreado').val();
+                alert(codigolic);
+                send_post('empresa_compra_curso', 'idusuario= ' + idusuario + '&idcurso= ' + idcurso + '&numlicenc='+ numlicenc+ '&codigolic='+ codigolic);
             } else {
-                alert('el id del curso es ' + idusuario);
-                send_post('comprar_curso', 'idusuario= ' + idusuario + '&idcurso= ' + idcurso + '&idlicencia= NULL');
+                if ($("#codigo").val()) {
+                    var licencia = $("#codigo").val();
+                    alert('el codigo es ' + nrolicencias);
+                    send_post('comprar_curso_licencia', 'idusuario= ' + idusuario + '&idcurso= ' + idcurso + '&licencia= ' + licencia);
+                } else {
+                    alert('el id del curso es ' + idusuario);
+                    send_post('comprar_curso', 'idusuario= ' + idusuario + '&idcurso= ' + idcurso + '&idlicencia= NULL');
+                }
             }
 
         } else {
@@ -415,19 +442,40 @@
 
     });
 
+    function updatePrice() {
+        console.log('AUMENTO PRECIO')
+        var totallicencias = $(this).val();
+        var nuevo_precio = totallicencias * precio_selecc * 0.9;
+        $("#precio").text(nuevo_precio);
+    };
+
     function mostrar_modal(thisObj) {
         var url = thisObj.attr('data-video');
         var titulo = thisObj.attr('data-titulo');
         var descripcion = thisObj.attr('data-descripcion');
-        idcurso = thisObj.attr('id');
-
+        var precio = thisObj.attr('data-precio');
+        precio_selecc = precio;
         $("#modal_titulo").text(titulo);
         $("#modal_parrafo").text(descripcion);
         $("iframe").attr('src', url);
-        $("#modal_curso").modal();
+        $("#precio").text(precio);
+
+
+        idcurso = thisObj.attr('id');
+        console.log(url, titulo, descripcion, idcurso);
+        if (rol == 4) {
+            $("#tengo_codigo").attr('type', 'hidden');
+            $("#div_contratar_alumnos").css('display', 'none');
+            $("#div_contratar_empresa").css('display', 'block');
+            $("#modal_curso").modal();
+
+        } else {
+
+            $("#modal_curso").modal();
+        }
     };
     $("#tengo_codigo").click(function() {
-        $(this).attr('type', 'hidden');
+        $("#div_contratar_alumnos").css('display', 'none');
         $(this).text('');
         $("#codigo").attr('type', 'text');
     });
@@ -436,7 +484,7 @@
     send_post('filtros_cargar_categorias', '')
     send_post('filtros_cargar_profesores', '')
     send_post('cargar_cursos', 'valor=1')
-
+    //CAMBIAR PRECIO CUANDO CONTRATAS MUCHOS CURSOS EN EMPRESA
 
 
     /*ANNADIR LINKS DE VIDEOS AL CURSO*/
