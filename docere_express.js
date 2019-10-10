@@ -389,17 +389,37 @@ app.post('/cargar_videos_usuario', function(req, res) {
     var datos = req.body;
 
     var idusuario = datos.idusuario;
-    console.log('ESTOY CARGANDO LOS VIDEOS DEL ' + idusuario);
-    var sentencia = "SELECT cu.tcursos_idCurso, v.leccion, v.url ,cu.avance, c.titulo FROM tusers_has_tcourses cu INNER JOIN tvideos v ON v.idcurso = cu.tcursos_idCurso INNER JOIN tcursos c ON c.idCurso= cu.tcursos_idCurso WHERE tusuarios_idUsuario = " + idusuario + " AND v.leccion = cu.idUltimoVideo;"
+    console.log('ESTOY CARGANDO LOS VIDEOS DE LOS CURSOS DEL USUARIO ' + idusuario);
+    var sentencia = "SELECT cu.tcursos_idCurso, v.leccion, v.url ,cu.avance, c.titulo, c.idCurso, c.descripcion FROM tusers_has_tcourses cu INNER JOIN tvideos v ON v.idcurso = cu.tcursos_idCurso INNER JOIN tcursos c ON c.idCurso= cu.tcursos_idCurso WHERE tusuarios_idUsuario = " + idusuario + " AND v.leccion = cu.idUltimoVideo ORDER BY cu.alta;"
     console.log(sentencia);
     con.query(sentencia, function(err, result, fields) {
         carrousel_curso = '';
         for (var i = 0; i < result.length; i++) {
-            carrousel_curso += '<div class="carousel-item ' + (i == 0 ? 'active"' : '"') + '><iframe class="embed-responsive-item" title="video' + result[i].leccion + '" style="width:100%" type="text/html" width="640" height="385" src="' + result[i].url + '" frameborder="0" allowfullscreen></iframe><h3>' + result[i].titulo + '</h3><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div></div><button type="button" data-url="' + result[i].url + '" class="btn btn-warning btn-lg" style="margin: 20px">Continuar lección ' + result[i].leccion + '</button></div>'
+            carrousel_curso += '<div class="carousel-item ' + (i == 0 ? 'active"' : '"') + '><iframe class="embed-responsive-item" title="video' + result[i].leccion + '" style="width:100%" type="text/html" width="640" height="385" src="' + result[i].url + '" frameborder="0" allowfullscreen></iframe><h3>' + result[i].titulo + '</h3><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div></div><button type="button" data-leccion="'+ result[i].leccion+'"  data-titulocurso="'+ result[i].titulo+'" data-idcurso="'+result[i].idCurso+'" data-url="' + result[i].url + '" class="boton_continuar_leccion btn btn-warning btn-lg" style="margin: 20px">Continuar lección ' + result[i].leccion + '</button></div>'
         }
         carrousel_curso += '</div>';
 
         res.send(carrousel_curso);
+    })
+});
+
+//CARGAR LOS VIDEOS DE LOS CURSOS EN LOS QUE ESTA EL USUARIO
+app.post('/cargar_videos_clase', function(req, res) {
+    console.log('ME METO');
+    var datos = req.body;
+    console.log(datos);
+    var leccion = datos.leccion;
+    var idcurso = datos.idcurso;
+    console.log('ESTOY CARGANDO LOS VIDEOS DEL CURSO ID ' + idcurso);
+    var sentencia = "SELECT leccion, url FROM tvideos WHERE idcurso = " + idcurso + ";";
+    console.log(sentencia);
+    con.query(sentencia, function(err, result, fields) {
+        carrousel_videos = '';
+        for (var i = 0; i < result.length; i++) {
+            leccion_escogida= result[i].leccion;
+            carrousel_videos += '<div class="carousel-item ' + (leccion == leccion_escogida ? 'active"' : '"') + '" data-leccion = "'+leccion_escogida+'" ><iframe class="embed-responsive-item" data-leccion = "'+leccion_escogida+'" title="vídeo arameo" style="width:100%" type="text/html" width="640" height="385" src="'+result[i].url+'" frameborder="1" allowfullscreen></iframe><div><h5>Leccion '+leccion_escogida+'</h5></div></div>'
+        }
+        res.send(carrousel_videos);
     })
 });
 
@@ -519,9 +539,56 @@ app.post('/empresa_compra_curso',function(req,res){
     })
 })
 
+//CARGA DATOS DEL PROFE DEL CURSO
 
+app.post('/cargar_datos_profe',function(req,res){
+    console.log('CARGO LOS DATOS DEL PROFESOR')
+    var datos =req.body;
+
+    var idcurso = datos.idcurso; 
+    con.query("SELECT u.nombre, u.apellidos, u.datosAcademicos, u.email, u.foto, c.descripcion FROM tUsuarios u INNER JOIN tcursos c ON c.idCurso = "+idcurso+" AND u.idUsuario=c.idProfe;",function(err,result,fields){
+        console.log(result);
+        res.send(JSON.stringify(result));
+
+    })   
+})
+
+//COMPROBAR SI HAS ACABDO CURSO 
 
 app.use(express.static('html'));
+
+app.post('/comprobar_fin_curso',function(req,res){
+    console.log('COMPROBAMOS EL FINAL')
+    var datos =req.body;
+    var leccion= datos.leccion;
+    var idcurso = datos.idcurso; 
+    con.query("SELECT * FROM tvideos WHERE idcurso="+idcurso+" AND leccion ="+leccion+";",function(err,result,fields){
+        console.log(result);
+        if(result.length==0){
+            res.send('acabaste el curso')
+        }else(res.send())
+
+    })   
+})
+
+//ACTUALIZAR LECCION 
+app.post('/actualizar_leccion',function(req,res){
+    console.log('COMPROBAMOS EL FINAL')
+    var datos =req.body;
+    console.log(datos);
+    var leccion= datos.leccion;
+    var idcurso = datos.idcurso; 
+    var idUsuario=datos.idUsuario;
+    con.query("UPDATE tusers_has_tcourses SET idUltimoVideo = "+leccion+" WHERE tusuarios_idUsuario= "+idUsuario+" AND tcursos_IdCurso = "+idcurso+"",function(err,result,fields){
+        console.log(result);
+        res.send();
+
+    })   
+})
+
+app.use(express.static('html'));
+
+
 
 
 app.listen(8080, function() {

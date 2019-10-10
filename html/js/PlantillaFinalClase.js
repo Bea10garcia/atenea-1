@@ -4,10 +4,10 @@ $('#nightMode').on('change', function() {
     $('#nightMode').checked = false;
     if (this.checked) {
         $('body').addClass('night');
-        $("#logoAtenea").attr("src", "atenealogoNocturno.png");
+        $("#logoAtenea").attr("src", "../img/atenealogoNocturno.png");
     } else {
         $('body').removeClass('night');
-        $("#logoAtenea").attr("src", "atenealogo.png");
+        $("#logoAtenea").attr("src", "../img/atenealogo.png");
     }
 });
 

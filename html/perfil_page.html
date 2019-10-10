@@ -100,7 +100,6 @@
                     </div>
                     <div id="carousel_cursos_usuario" class="carousel slide" data-ride="carousel" data-interval="false">
                         <div id="carousel_cursos" class="carousel-inner">
-
                         </div>
                         <button id="boton_ir_busqueda" type="button" class="btn btn-warning btn-lg" style="margin: 20px">Ver más cursos</button>
                         <a class="carousel-control-prev" href="#carousel_cursos_usuario" role="button" data-slide="prev">
@@ -266,7 +265,6 @@
             </div>
         </div>
     </div>
-    
     <!-- prueba Bea cursos recomendados y novedades -->
     <section class="section-agents section-t8">
         <div class="container">
@@ -444,7 +442,7 @@
     </footer>
     <script>
     var id = sessionStorage.getItem('idUsuario');
-
+    alert(id)
     function send_post(accion, datos) {
         $.ajax({
             type: "POST",
@@ -462,12 +460,26 @@
 
     function procesa_datos_recibidos(data, status, accion, datos) {
         console.log("DA " + data);
-        
-        
+
+
         switch (accion) {
             case 'cargar_videos_usuario':
                 console.log(data);
                 $('#carousel_cursos').html(data);
+                $('.boton_continuar_leccion').off('click').on('click', function() {
+                    console.log($(this));
+                    var idcurso = $(this).attr('data-idcurso');
+                    var leccionactual = $(this).attr('data-leccion');
+                    var titulo = $(this).attr('data-titulocurso');
+                    console.log('idcurso ' + idcurso + ' titulo ' + titulo + ' leccion actual ' + leccionactual)
+                    sessionStorage.setItem('idcurso', idcurso);
+                    sessionStorage.setItem('leccionactual', leccionactual);
+                    sessionStorage.setItem('titulo', titulo);
+                    sessionStorage.setItem('idusuario', id);
+                    window.location.href = 'clase.html';
+                });
+                /*$('.boton_continuar_leccion').off('click').on('click', continuar_leccion($(this)));
+                 */
                 break;
             case 'perfil':
                 dat = JSON.parse(data);
@@ -496,6 +508,23 @@
         window.location.href = 'filterpage.html';
 
     })
+
+    //ABRIMOS LA PAGINA DE VIDEOS CON LA FUNCION
+
+    function continuar_leccion(boton) {
+        console.log(boton);
+        var idcurso = boton.attr('data-idcurso');
+        var leccionactual = boton.attr('data-leccion');
+        var titulo = boton.attr('data-titulocurso');
+        console.log('idcurso ' + idcurso + ' titulo ' + titulo + ' leccion actual ' + leccionactual)
+        sessionStorage.setItem('idcurso', idcurso);
+        sessionStorage.setItem('leccionactual', leccionactual);
+        sessionStorage.setItem('titulo', titulo);
+        sessionStorage.setItem('idusuario', id);
+        window.location.href = 'clase.html';
+
+
+    }
 
 
     console.log("EL ID ES " + id);

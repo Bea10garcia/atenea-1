@@ -101,7 +101,7 @@
         <div class="row justify-content-center mt-5">
             <div class="col-md-4">
                 <div class="card" style="width:400px">
-                    <img id = "fotoperfil" class="card-img-top" src="" name="usuario" alt="usuarioFoto" style="width:100%" style="border-radius: 50px">
+                    <img id="fotoperfil" class="card-img-top" src="" name="usuario" alt="usuarioFoto" style="width:100%" style="border-radius: 50px">
                     <!-- de esta forma se transforma un input browser en botón, así el usuario carga su foto de perfil -->
                     <label class="btn btn-success">
                         Cambiar Foto <input type="file" hidden>
@@ -111,25 +111,22 @@
                         <p class="card-text">Profesora de JavaScript y Plastilina</p>
                         <div class="input-group mb-3">
                             <span class="input-group-btn">
-                                <button class="btn btn-success mt-1 mb-1" data-toggle="tooltip" data-placement="top" title="Editar" type="button">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </button>
                                 <button class="btn btn-success mt-1 mb-1" data-toggle="tooltip" data-placement="top" title="Mis Estadísticas" type="button">
                                     <i class="fas fa-chart-bar"></i>
                                 </button>
-                                <button class="btn btn-success mt-1 mb-1" data-toggle="tooltip" data-placement="top" title="Mis Mensajes" type="button">
+                                <button class="btn btn-success mt-1 mb-1" data-toggle="modal" data-placement="top" title="Mis Mensajes" type="button" data-target="#exampleModal" data-whatever="atenea@formacion.com">
                                     <i class="far fa-envelope"></i>
                                 </button>
-                                <button class="btn btn-success mt-1 mb-1" data-toggle="tooltip" data-placement="top" title="Pagos" type="button">
+                                <button class="btn btn-success mt-1 mb-1" data-toggle="modal" data-target="#modalFactura" title="Pagos" type="button" id="boton_modal_facturas">
                                     <i class="fas fa-piggy-bank"></i>
                                 </button>
                                 <!-- botón para abrir el modal de crear nuevo curso -->
                                 <button type="button" class="btn btn-success mt-1 mb-1" data-toggle="modal" data-target="#exampleModalLong" id="boton_modal_curso" title="Subir Curso">
                                     <i class="fas fa-file-upload"></i>
-                                </button>     
-                                <!-- con esto hacemos que pueda subir pdf/archivos a la bbdd -->                           
+                                </button>
+                                <!-- con esto hacemos que pueda subir pdf/archivos a la bbdd -->
                                 <label class="btn btn-success mt-1 mb-1" title="Subir CV/archivos" type="button">
-                                        <input type="file" hidden class="btn btn-success mt-1 mb-1" title="Subir CV/archivos" type="button"> <i class="far fa-file-pdf"></i>
+                                    <input type="file" hidden class="btn btn-success mt-1 mb-1" title="Subir CV/archivos" type="button"> <i class="far fa-file-pdf"></i>
                                 </label>
                             </span>
                             <!-- parte medallas usuario -->
@@ -296,7 +293,65 @@
                 </div>
             </div>
         </div>
-        <!-- Modal -->
+        <!-- Modal Mensajes -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Contacta con nosotros</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Destinatario:</label>
+                                <input type="text" class="form-control" id="recipient-name" value="atenea@formacion.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Mensaje:</label>
+                                <textarea class="form-control" id="message-text"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Facturas -->
+        <div class="modal fade" id="modalFactura" tabindex="-1" role="dialog" aria-labelledby="modal_Fact" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal_Fact">Tus Facturas</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="numFacturas" class="table table-striped">
+                            <!-- <tr > -->
+                            <!-- <td id="numFacturas"></td> -->
+                            <tr>
+                                <td>
+                                    <button class="btn btn-success mt-1 mb-2 ml-2 mr-2 pull-right" data-toggle="tooltip" data-placement="top" title="Descargar Factura" type="submmit" id="descargFact">
+                                        <i class="fas fa-file-download"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="boton_tabla_cerrar">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--MODAL CURSO-->
         <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="modal_alta_user" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -323,7 +378,6 @@
                                     <th>Categoría
                                         <div class="dropdown mt-2">
                                             <select class="form-control form-control" id="selector_categoria">
-                                                <option>Selecciona una</option>
                                             </select>
                                         </div>
                                     </th>
@@ -409,12 +463,12 @@
 
     function procesa_datos_recibidos(data, status, accion, datos) {
         console.log("DA" + data);
-        dat = JSON.parse(data);
-        console.log("LA ACCION ES" + accion);
+
         switch (accion) {
             case 'perfilProfe':
                 console.log("ME METO EN ROBERTO");
-
+                dat = JSON.parse(data);
+                console.log("LA ACCION ES" + accion);
                 $('#saludoUsuario').html("Hola profe " + dat[0].nombre); // html para el resto de elementos html
                 $('#tarjetaNombre').html(dat[0].nombre + " " + dat[0].apellidos);
                 $('#alias').val(dat[0].alias);
@@ -427,7 +481,7 @@
                 $('#tarjeta').val(dat[0].datosFacturacion);
                 $('#password').val(dat[0].password);
                 $('#datosAcad').val(dat[0].datosAcademicos);
-                $('#fotoperfil').attr('src',dat[0].foto);
+                $('#fotoperfil').attr('src', dat[0].foto);
                 break;
                 // Parte modal de crear curso
             case 'cargar_categorias':
@@ -440,8 +494,17 @@
                 alert('Curso creado! Te llegará un correo una vez se valide!');
                 $('#boton_tabla_cerrar').click();
                 break;
+            case 'descargaFactura':
+                console.log("hey, factura nº:" + data);
+                console.log("factura empresa: " + data);
+                $('#numFacturas').html(data);
+                break;
         }
     }
+    $('#boton_modal_facturas').on('click', function() {
+        console.log("botón facturas pulsado para " + id);
+        send_post('descargaFactura', 'idUsuario=' + id);
+    });
 
     $("#selector_idioma").change(function() {
         idioma_curso = $(this).children(":selected").attr("id");
