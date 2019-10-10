@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Atenea Cursos - Edición</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <!-- Favicons -->
+    <link href="img/ateneaminilogo-04.png" rel="icon">
+    <link href="img/ateneaminilogo-03.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <!-- Required by Bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Libraries CSS Files -->
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <script src="lib/jquery/jquery.min.js"></script>
+    <!-- enlace a biblioteca que permite hacer botones toggle on-off -->
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <!-- enlace Bea a fontawesome para los iconos de las medallas -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <!-- enlace Bea a biblioteca sweet alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style type="text/css">
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row align-items-center mt-3">
+            <div class="col-4">
+                <a class="navbar-brand" href="index.html">
+                    <img src="img/atenealogo.png" width="350px">
+                </a>
+            </div>
+            <div class="col-8">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Mis Cursos</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Mi Perfil<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Dropdown
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Disabled</a>
+                            </li>
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+        </div> <!--  Fila con logo y menu -->
+        <div class="row mt-5">
+            <!--  Fila para el titulo del video -->
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box border-left border-success">
+                    <h1 class="title-single pl-4">Atenea Validación</h1>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                    <ol class="breadcrumb bg-transparent">
+                        <li class="breadcrumb-item">
+                            <a href="#" class="text-success">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active text-success" aria-current="page">
+                            Profile
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!--CURSOS A VALIDAR-->
+    <div class="container-fluid property-single nav-arrow-b mb-5">
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-md-offset-6 text-center">
+                <div class="title-box">
+                    <h2 class="title-a text-success">Nuevos Cursos</h2>
+                </div>
+                <div id="cursos_a_validar">
+                    <div class="div_lista_cursos row justify-content-left mt-2 border p-1">
+                        <div class="col-7 mt-2" style="display: inline-block;">
+                            <h5>Curso de </h5>
+                        </div>
+                        <div class="col-3 mt-2" style="display: inline-block;">
+                            <h6>Categoría</h6>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-secondary sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false">
+                                Ver más
+                            </button>
+                        </div>
+                    </div>
+                    <div class="collapse border container" id="collapseExample">
+                        <div class="div_empleados row justify-content-left ml-10 align-items-center p-1">
+                            <div class="col-6 ">
+                                <h6>Pedro</h6>
+                            </div>
+                            <button class="boton_validar btn btn-secondary sm" type="button">
+                                Validar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--USUARIOS A VALIDAR-->
+    <div class="container-fluid property-single nav-arrow-b mb-5">
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-md-offset-6 text-center">
+                <div class="title-box">
+                    <h2 class="title-a text-success">Nuevos Usuarios</h2>
+                </div>
+                <div id="usuarios_a_validar">
+                    <div class="div_lista_cursos row justify-content-left mt-2 border p-1">
+                        <div class="col-7 mt-2" style="display: inline-block;">
+                            <h5>Curso de </h5>
+                        </div>
+                        <div class="col-3 mt-2" style="display: inline-block;">
+                            <h6>Rol</h6>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-secondary sm" type="button">
+                                Ver más
+                            </button>
+                        </div>
+                    </div>
+                    <div class="collapse border container" id="collapseExample">
+                        <div class="div_empleados row justify-content-left ml-10 align-items-center p-1">
+                            <div class="col-6 ">
+                                <h6>Pedro</h6>
+                            </div>
+                            <button class="boton_validar btn btn-secondary sm" type="button">
+                                Validar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- prueba footer -->
+    <footer class="card-footer ">
+        <div class="container mt-10">
+            <div class="row">
+                <div class="col-md-offset-12">
+                    <div class="widget-a">
+                        <div class="w-header-a">
+                            <h3 class="w-title-a text-brand">Atenea Formación</h3>
+                        </div>
+                        <div class="w-body-a">
+                            <p class="w-text-a color-text-a">
+                                Plataforma de cursos online.
+                            </p>
+                        </div>
+                        <div class="w-footer-a">
+                            <ul class="list-unstyled">
+                                <li class="color-a">
+                                    <span class="color-text-a">Teléfono: </span> atenea@formacion.com
+                                </li>
+                                <li class="color-a">
+                                    <span class="color-text-a">Email: </span> +34 91 200 12 34
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <nav class="nav-footer">
+                    </nav>
+                    <div class="copyright-footer">
+                        <p class="copyright color-text-a">
+                            &copy; Copyright
+                            <span class="color-a">AteneaFormacion</span> All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="credits">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+    var id = sessionStorage.getItem('idUsuario');
+    var curso_clickado = '';
+
+    function send_post(accion, datos) {
+        $.ajax({
+            type: "POST",
+            url: accion,
+            data: datos,
+            success: function(data, status) {
+                console.log('llego');
+                procesa_datos_recibidos(data, status, accion, datos);
+            },
+            error: function(err) {
+                console.log("error " + err.status + ' ' + err.statusText);
+            }
+        });
+    }
+
+    function procesa_datos_recibidos(data, status, accion, datos) {
+        console.log("DA" + data);
+
+        switch (accion) {
+            case 'cargar_cursos_avalidar':
+                $("#cursos_a_validar").html(data);
+                $(".ver_curso").off('click').on('click', function() {
+                    var idcurso=$(this).attr('data-idcurso');
+                    curso_clickado=idcurso;
+                    console.log(curso_clickado);
+                    send_post('validador_vevideos', 'idcurso=' + idcurso);
+                });
+                $(".boton_validar_curso").off('click').on('click', function() {
+                    var idcurso=$(this).attr('data-idcurso');
+                    console.log(idcurso);
+                    send_post('validar_curso', 'idcurso=' + idcurso);
+                });
+                break;
+            case 'cargar_usuarios_avalidar':
+                $("#usuarios_a_validar").html(data);
+                $(".boton_validar_usuario").off('click').on('click', function() {
+                    var idusuario=$(this).attr('data-idusuario');
+                    console.log(idusuario);
+                    send_post('validar_usuario', 'idusuario=' + idusuario);
+                });
+                break;
+            case 'validar_curso':
+                alert("Curso validado con éxito");
+                send_post("cargar_cursos_avalidar", '');
+                break;
+            case 'validar_usuario':
+                alert("Usuario validado con éxito");
+                send_post("cargar_usuarios_avalidar", '');
+                break;
+            case 'validador_vevideos':
+                $("#"+curso_clickado+"").append(data);
+                break;
+
+        }
+    }
+
+
+    send_post("cargar_cursos_avalidar", '');
+    send_post("cargar_usuarios_avalidar", '');
+    console.log("EL ID ES " + id);
+
+    //send_post("perfilEmpresa", 'idUsuario=8');
+    </script>
+    <!-- JavaScript Libraries -->
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/jquery/jquery-migrate.min.js"></script>
+    <script src="lib/popper/popper.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/scrollreveal/scrollreveal.min.js"></script>
+    <!-- biblioteca toggle on-off -->
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/js/bootstrap4-toggle.min.js"></script>
+    <!-- enlace Bea archivo js externo -->
+    <script src="js/PlantillaFinalPerfil.js"></script>
+</body>
+
+</html>

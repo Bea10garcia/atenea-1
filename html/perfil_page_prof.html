@@ -445,7 +445,7 @@
     var contador_videos = 0;
     var idioma_curso;
     var categoria_curso;
-
+    var id = sessionStorage.getItem('idUsuario');
     function send_post(accion, datos) {
         $.ajax({
             type: "POST",
@@ -535,15 +535,16 @@
     /*NUEVO CURSO*/
     $('#boton_alta_curso').off('click').on('click', function() {
         datos = $('#tabla_alta :input').serialize();
+        
         idcategoria = categoria_curso;
         ididioma = idioma_curso;
         console.log(idcategoria)
-        datos += '&fidcategoria=' + idcategoria + '&fididioma=' + ididioma;
+        datos += '&fidcategoria=' + idcategoria + '&fididioma=' + ididioma+ '&id=' + id;
         console.log(datos);
         send_post('crear_curso', datos);
     })
 
-    var id = sessionStorage.getItem('idUsuario');
+    
     console.log("EL ID ES " + id);
     send_post("perfilProfe", 'idUsuario=' + sessionStorage.getItem('idUsuario'));
     //send_post("perfilProfe", 'idUsuario=5');
